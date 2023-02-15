@@ -1,0 +1,15 @@
+{
+  "name": "car-nanny",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "tdesign-miniprogram": "^1.0.0-rc.2"
+  },
+  "devDependencies": {
+    "miniprogram-api-typings": "^3.9.0"
+  }
+}
