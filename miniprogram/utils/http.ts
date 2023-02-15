@@ -20,7 +20,13 @@ const interceptorsResponse = <T>(
 };
 
 const gotoLoginPage = () => {
-  //
+  const pages = getCurrentPages()
+  const currentPage = pages[pages.length - 1]
+  const loginPage = 'pages/login/login'
+
+  if (currentPage.route !== loginPage) {
+    wx.navigateTo({ url: '/'+loginPage })
+  }
 }
 
 const getToken = () => getApp().globalData.user.token
