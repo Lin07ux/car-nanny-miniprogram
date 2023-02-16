@@ -8,3 +8,9 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+/** weui **/
+.justify .weui-label {
+  text-align: justify;
+  text-align-last: justify;
+}

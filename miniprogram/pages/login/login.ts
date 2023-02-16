@@ -1,66 +1,49 @@
-// pages/login/login.ts
+
+const user: IUser = getApp().globalData.user
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    form: {
+      account: '',
+      password: '',
+    },
+    rules: [
+      {
+        name: 'account',
+        rules: { required: true, message: '请输入账号' },
+      }, {
+        name: 'password',
+        rules: { required: true, message: '请输入密码' },
+      },
+    ],
+    error: '',
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad() {
-
+  formInput(e: WechatMiniprogram.Input) {
+    const { field } = e.currentTarget.dataset
+    this.setData({
+      [`form.${field}`]: e.detail.value
+    })
   },
+  submit() {
+    this.selectComponent('#form').validate((valid: boolean, errors: Array<{ message: string }>) => {
+      if (!valid) {
+        return this.setData({ error: errors[0]?.message || '请填写登录账号和密码' })
+      }
+      
+      wx.showLoading({ title: '' })
+      user.login(this.data.form.account, this.data.form.password).then(res => {
+        wx.hideLoading()
+        if (! res.success) {
+          this.setData({ error: res.message || '登录失败' })
+        } else {
+          wx.showToast({ title: '登录成功' })
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+          // 回退到前一页
+          if (getCurrentPages().length > 1) {
+            setTimeout(() => wx.navigateBack(), 500)
+          }
+        }
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
 })

@@ -1,2 +1,24 @@
-<!--pages/login/login.wxml-->
-<text>pages/login/login.wxml</text>
+<view class="page" data-weui-theme="{{theme}}">
+  <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+
+  <mp-form-page title="车保姆西溪店" subtitle="请使用您的账号进行登录">
+    <mp-form id="form" rules="{{rules}}" models="{{form}}">
+      <mp-cells>
+        <label class="justify">
+          <mp-cell prop="account" title="账号" ext-class="">
+            <input type="text" class="weui-input" value="{{form.account}}" bindinput="formInput" data-field="account" focus placeholder="请输入账号"/>
+          </mp-cell>
+        </label>
+        <label class="justify">
+          <mp-cell prop="password" title="密码" ext-class="">
+            <input type="password" class="weui-input" value="{{form.password}}" bindinput="formInput" data-field="password" placeholder="请输入密码"/>
+          </mp-cell>
+        </label>
+      </mp-cells>
+    </mp-form>
+
+    <view slot="button">
+      <button class="weui-btn" type="primary" bindtap="submit">登录</button>
+    </view>
+  </mp-form-page>
+</view>
