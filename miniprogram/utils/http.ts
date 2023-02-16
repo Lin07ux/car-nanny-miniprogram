@@ -5,8 +5,10 @@ const interceptorsResponse = <T>(
   resolve: (value: T | PromiseLike<T>) => void,
   reject: (reason?: any) => void
 ): void => {
+  const data = res.data as { code?: number, msg?: string, data?: any }
+
   if (200 <= res.statusCode && res.statusCode < 300) {
-    return resolve(res.data as T);
+    return resolve(data.data as T);
   }
 
   // 重新登录
@@ -14,9 +16,7 @@ const interceptorsResponse = <T>(
     gotoLoginPage()
   }
 
-  const { code = 0, message = '接口错误' } = res.data as { code?: number, message?: string }
-
-  return reject({ code, message });
+  return reject({ code: data.code || 0, message: data.msg || '接口错误' });
 };
 
 const gotoLoginPage = () => {
@@ -42,7 +42,6 @@ const http = (method: 'POST' | 'PUT' | 'GET' | 'DELETE', path: string, data: any
       header: {
         'authorization': getToken(),
         'content-type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
       },
       success(res: WechatMiniprogram.RequestSuccessCallbackResult) {
         interceptorsResponse(res, resolve, reject);

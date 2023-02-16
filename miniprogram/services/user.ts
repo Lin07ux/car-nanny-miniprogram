@@ -1,6 +1,6 @@
 import { getStorageSync, setStorageSync } from "./storage"
-import { post } from "../utils/http"
 import { LOGIN } from "../constants/apis"
+import { post } from "../utils/http"
 
 const STORAGE_KEY = 'user'
 
@@ -36,15 +36,16 @@ class User {
     return this.getWxLoginCode()
       .then(res => post(LOGIN, { account, password, code: res.code }))
       .then(res => {
+        console.log(res)
         this.#name = res.name || ''
         this.#token = res.token || ''
         this.#openid = res.openid || ''
 
-        this.storeLoginData(res.expireAt || 0)
+        this.storeLoginData(res.expireAt || 3600)
 
         return Promise.resolve({ success: true, message: '登录成功' })
       }).catch(err => {
-        return Promise.reject({ success: false, message: err.message })
+        return Promise.resolve({ success: false, message: err.message })
       })
   }
 

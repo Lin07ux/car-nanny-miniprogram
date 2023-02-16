@@ -10,4 +10,5 @@ interface IAppOption {
 interface IUser {
   name: string,
   token: string,
+  login(account: string, password: string): Promise<{ success: boolean, message: string }>,
 }
