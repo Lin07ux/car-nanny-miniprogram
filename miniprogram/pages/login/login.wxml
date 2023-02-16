@@ -17,6 +17,13 @@
       </mp-cells>
     </mp-form>
 
+    <checkbox-group slot="tips" bindchange="rememberChange">
+      <label>
+        <checkbox checked="{{remember}}" />
+        <text class="weui-agree__text">记住账号</text>
+      </label>
+    </checkbox-group>
+
     <view slot="button">
       <button class="weui-btn" type="primary" bindtap="submit">登录</button>
     </view>

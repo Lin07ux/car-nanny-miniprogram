@@ -1,3 +1,11 @@
 .weui-label {
   width: 4em;
 }
+.weui-form__control-area {
+  margin-bottom: 14px;
+}
+.weui-form__tips-area{
+  text-align: left;
+  padding-left: 32px;
+  margin-bottom: 48px;
+}
