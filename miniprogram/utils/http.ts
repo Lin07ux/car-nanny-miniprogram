@@ -12,7 +12,9 @@ const interceptorsResponse = <T>(
   }
 
   // 重新登录
-  if (res.statusCode === 401) {
+  console.log(data.code)
+  if (res.statusCode === 401 || data.code === 80000) {
+    data.msg = '登录失效'
     gotoLoginPage()
   }
 
@@ -25,7 +27,7 @@ const gotoLoginPage = () => {
   const loginPage = 'pages/login/login'
 
   if (currentPage.route !== loginPage) {
-    wx.navigateTo({ url: '/'+loginPage })
+    setTimeout(() => wx.navigateTo({ url: '/'+loginPage }), 800)
   }
 }
 
@@ -40,7 +42,7 @@ const http = (method: 'POST' | 'PUT' | 'GET' | 'DELETE', path: string, data: any
       dataType: 'json',
       enableHttp2: ! isDevelop,
       header: {
-        'authorization': getToken(),
+        'x-jwt-token': getToken(),
         'content-type': 'application/json',
       },
       success(res: WechatMiniprogram.RequestSuccessCallbackResult) {

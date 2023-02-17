@@ -12,3 +12,8 @@ interface IUser {
   token: string,
   login(account: string, password: string): Promise<{ success: boolean, message: string }>,
 }
+
+interface IHttpError {
+  code: number,
+  message: string,
+}

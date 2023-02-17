@@ -36,7 +36,6 @@ class User {
     return this.getWxLoginCode()
       .then(res => post(LOGIN, { account, password, code: res.code }))
       .then(res => {
-        console.log(res)
         this.#name = res.name || ''
         this.#token = res.token || ''
         this.#openid = res.openid || ''
