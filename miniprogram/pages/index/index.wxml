@@ -11,4 +11,6 @@
     />
     <icon class="icon" type="search" size="1rem" bindtap="search"></icon>
   </view>
+
+  <t-fab class="add-button" icon="add" bind:click="gotoMemberForm" aria-label="新增用户"></t-fab>
 </view>

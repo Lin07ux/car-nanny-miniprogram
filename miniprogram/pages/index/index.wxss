@@ -16,3 +16,9 @@
 .search-bar .icon {
   margin: 3px 0 -3px;
 }
+
+.add-button {
+  left: auto;
+  right: 2vw;
+  bottom: 30vh;
+}
