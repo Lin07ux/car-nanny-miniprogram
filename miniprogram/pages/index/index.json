@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "车保姆",
+  "onReachBottomDistance": 80,
   "usingComponents": {
     "mp-form": "weui-miniprogram/form/form",
     "mp-cells": "weui-miniprogram/cells/cells",

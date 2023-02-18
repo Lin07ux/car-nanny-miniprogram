@@ -18,6 +18,12 @@ Page({
       this.loadMembers(this.data.keyword, this.data.members.lastId)
     }
   },
+  onPullDownRefresh() {
+    this.loadMembers(this.data.keyword)
+  },
+  onReachBottom: function() {
+    this.loadMembers(this.data.keyword, this.data.members.lastId)
+  },
   inputKeyword(e: WechatMiniprogram.Input) {
     this.setData({ keyword: e.detail.value || '' })
   },
