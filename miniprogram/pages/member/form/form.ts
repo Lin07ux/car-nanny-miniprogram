@@ -162,13 +162,13 @@ Page({
     this.setData({ [`images.${type}`]: [image] })
 
     return uploadImage(type, image.url)
-      .then((res: { url: string }) => {
+      .then((res: { url: string, path: string }) => {
         image.href = res.url
         image.loading = false
 
         this.setData({
           [`images.${type}`]: [image],
-          [`form.${type}`]: res.url,
+          [`form.${type}`]: res.path,
         })
       })
       .catch((err: IHttpError) => {
