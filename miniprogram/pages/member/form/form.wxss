@@ -1,1 +1,20 @@
-/* pages/member/form/form.wxss */
+.weui-cell__bd {
+  margin-left: .5em;
+}
+.weui-btn {
+  margin-top: 30px;
+}
+.weui-input {
+  text-align: right;
+}
+.weui-uploader__hd {
+  display: none;
+}
+.weui-uploader__input-box, .weui-uploader__file {
+  float: right;
+  width: 128px;
+}
+.tips{
+  color: #8D9095;
+  margin: .5em 1em;
+}

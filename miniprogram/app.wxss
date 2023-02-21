@@ -13,4 +13,15 @@
 .justify .weui-label {
   text-align: justify;
   text-align-last: justify;
+  padding-right: 1em;
+  box-sizing: border-box;
+}
+.required .weui-label {
+  position: relative;
+}
+.required .weui-label::after {
+  content: '*';
+  color: red;
+  position: absolute;
+  margin-left: .3em;
 }
