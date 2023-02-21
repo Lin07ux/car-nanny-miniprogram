@@ -69,9 +69,7 @@ export const upload = (url : string, filePath : string, name : string = 'file', 
       filePath,
       formData,
       header: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'content-type': 'multipart/form-data',
-        'authorization': getToken(),
+        'x-jwt-token': getToken(),
       },
       success(res: WechatMiniprogram.UploadFileSuccessCallbackResult) {
         try {
