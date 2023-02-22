@@ -29,6 +29,7 @@
   margin-bottom: 1.2em;
   display: flex;
   align-items: center;
+  background-color: #fff;
 }
 .members .item+.item {
   padding-top: 1.2em;

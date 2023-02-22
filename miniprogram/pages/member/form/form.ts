@@ -145,7 +145,7 @@ Page({
         }).then((res: { id: number }) => {
           this.getOpenerEventChannel().emit('created')
           wx.showToast({ title: '创建成功', icon: 'success' })
-          console.log(res)
+          setTimeout(() => wx.redirectTo({ url: `/pages/member/detail/detail?id=${res.id}` }), 600)
         }).catch((err: IHttpError) => {
           this.setData({ error: err.message })
           wx.hideLoading()

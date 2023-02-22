@@ -14,7 +14,7 @@
 
   <t-divider />
   <view class="members">
-    <view class="item" wx:for="{{members.list}}" wx:key="id">
+    <navigator class="item" wx:for="{{members.list}}" wx:key="id" url="/pages/member/detail/detail?id={{item.id}}">
       <image class="cover" src="{{item.cover}}" mode="aspectFill"/>
       <view class="content">
         <view class="header">
@@ -32,7 +32,7 @@
           <text class="last-time" wx:if="{{item.lastConsumerTime}}">({{item.lastConsumerTime}})</text>
         </view>
       </view>
-    </view>
+    </navigator>
   </view>
 
   <t-fab class="add-button" icon="add" bind:click="gotoMemberForm" aria-label="新增用户"></t-fab>
