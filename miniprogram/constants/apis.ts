@@ -9,3 +9,5 @@ export const LABEL_LIST = 'labels'
 // 会员
 export const MEMBER_LIST = 'members'
 export const MEMBER_CREATE = 'members'
+export const MEMBER_DETAIL = 'members/_id_'
+export const MEMBER_ACTIONS = 'members/_id_/actions'
