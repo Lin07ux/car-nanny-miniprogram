@@ -56,9 +56,6 @@
   margin: 0 5px;
   color: #414243;
 }
-.members .item .t-icon {
-  display: inline-block;
-}
 .members .item .text {
   line-height: 1;
   margin-top: .3em;

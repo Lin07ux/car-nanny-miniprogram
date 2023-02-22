@@ -1,2 +1,54 @@
-<!--pages/member/detail/detail.wxml-->
-<text>pages/member/detail/detail.wxml</text>
+<view class="header wrapper">
+  <image class="cover" src="{{detail.photos[0]}}" mode="aspectFill"/>
+  <view class="content">
+    <view class="name">{{detail.name}}</view>
+    <view class="car-no">{{detail.carLicenseNo}}</view>
+    <button class="call" size="mini" type="primary">
+      <t-icon name="call" size="20" />
+      <text>{{detail.tel}}</text>
+    </button>
+  </view>
+</view>
+
+<t-divider/>
+
+<view class="tags wrapper">
+  <text class="label">标签管理</text>
+  <view>
+    <t-tag class="tag" wx:for="{{detail.labels}}" wx:key="id" variant="outline">{{item.name}}</t-tag>
+  </view>
+</view>
+
+<t-divider/>
+
+<view class="statistic wrapper">
+  <text class="label">消费总览</text>
+  <view class="content">
+    <view class="item">
+      <view class="title">{{detail.rechargeMoney / 100}}</view>
+      <view>充值金额</view>
+    </view>
+    <view class="item">
+      <view class="title">{{detail.canWashCount}}</view>
+      <view>剩余洗车次数</view>
+    </view>
+  </view>
+</view>
+
+<t-divider/>
+
+<view class="actions wrapper">
+  <text class="label">消费记录</text>
+  <view wx:for="{{actions.list}}" wx:key="id">
+    <view class="item">
+      <view class="detail">
+        <view class="title">{{item.title}}</view>
+        <view class="time">{{item.createTime}}</view>
+      </view>
+      <view class="count primary" wx:if="{{item.count > 0}}">+{{item.count}}</view>
+      <view class="count" wx:else>{{item.count}}</view>
+    </view>
+    <t-divider/>
+  </view>
+  <view class="empty" wx:if="{{!actions.list.length}}">暂无记录</view>
+</view>

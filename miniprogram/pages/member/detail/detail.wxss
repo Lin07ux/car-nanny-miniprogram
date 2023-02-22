@@ -1,1 +1,87 @@
-/* pages/member/detail/detail.wxss */
+.wrapper {
+  padding: .5em 1em;
+}
+.label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+.header .cover {
+  width: 50%;
+  margin-right: 10px;
+  height: 120px;
+}
+.header .content {
+  flex: 1;
+  text-align: center;
+}
+.header .name {
+  font-size: 1.2em;
+  margin-bottom: .4em;
+}
+.header .car-no {
+  font-size: 1.1em;
+}
+.header .call {
+  margin-top: .5em;
+  background-color: #409EFF;
+}
+.header .call .t-icon {
+  vertical-align: middle;
+}
+
+.tags .tag+.tag {
+  margin-left: 1em;
+}
+
+.statistic .content {
+  display: flex;
+}
+.statistic .item {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  color: #6C6E72;
+}
+.statistic .item .title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: .5em 0 .1em;
+  color: #1D1D1D;
+}
+
+.actions .item {
+  display: flex;
+  padding: 5px 0;
+  align-items: center;
+}
+.actions .item .detail {
+  flex: 1;
+}
+.actions .item .title {
+  color: #1D1D1D;
+  margin-bottom: .4em;
+}
+.actions .item .time {
+  color: #6C6E72;
+  font-size: 14px;
+}
+.actions .item .count {
+  width: 3em;
+  text-align: right;
+  color: #363637;
+  letter-spacing: 2px;
+}
+.actions .item .count.primary {
+  color: red;
+}
+.actions .empty {
+  text-align: center;
+  color: #A3A6AD;
+  margin: 2em 0;
+}

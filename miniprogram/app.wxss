@@ -25,3 +25,8 @@
   position: absolute;
   margin-left: .3em;
 }
+
+/* TDesign */
+.t-icon {
+  display: inline-block;
+}
