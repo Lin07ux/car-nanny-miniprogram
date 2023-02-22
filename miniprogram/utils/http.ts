@@ -12,7 +12,6 @@ const interceptorsResponse = <T>(
   }
 
   // 重新登录
-  console.log(data.code)
   if (res.statusCode === 401 || data.code === 80000) {
     data.msg = '登录失效'
     gotoLoginPage()

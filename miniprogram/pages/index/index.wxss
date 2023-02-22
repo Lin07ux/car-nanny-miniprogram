@@ -22,3 +22,54 @@
   right: 2vw;
   bottom: 30vh;
 }
+.members {
+  padding: 1em 1.2em;
+}
+.members .item {
+  margin-bottom: 1.2em;
+  display: flex;
+  align-items: center;
+}
+.members .item+.item {
+  padding-top: 1.2em;
+  border-top: 1rpx solid #e7e7e7;
+}
+.members .item .cover {
+  width: 128px;
+  max-width: 35%;
+  height: 96px;
+  margin-right: 1em;
+}
+.members .item .content {
+  flex: 1;
+}
+.members .item .header {
+  line-height: 1;
+  margin-bottom: .5em;
+}
+.members .item .name {
+  font-size: 1.2em;
+}
+.members .item .car-no {
+  font-size: 1.1em;
+  margin: 0 5px;
+  color: #414243;
+}
+.members .item .t-icon {
+  display: inline-block;
+}
+.members .item .text {
+  line-height: 1;
+  margin-top: .3em;
+  color: #4C4D4F;
+}
+.members .item .text .t-icon {
+  margin-right: 3px;
+}
+.members .item .text .t-icon-base {
+  display: inline;
+  vertical-align: middle;
+}
+.members .item .last-time {
+  margin-left: 5px;
+}

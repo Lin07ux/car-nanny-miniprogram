@@ -12,5 +12,28 @@
     <icon class="icon" type="search" size="1rem" bindtap="search"></icon>
   </view>
 
+  <t-divider />
+  <view class="members">
+    <view class="item" wx:for="{{members.list}}" wx:key="id">
+      <image class="cover" src="{{item.cover}}" mode="aspectFill"/>
+      <view class="content">
+        <view class="header">
+          <text class="name">{{item.name}}</text>
+          <text class="car-no">({{item.carLicenseNo}})</text>
+          <t-tag wx:if="{{item.isVip}}" class="vip" icon="discount-filled" theme="primary" size="small" variant="light" shape="round">VIP</t-tag>
+        </view>
+        <view class="text">
+          <t-icon name="call" size="21" />
+          <text>{{item.tel}}</text>
+        </view>
+        <view class="text">
+          <t-icon name="clear" size="21" />
+          <text>{{item.canWashCount}}</text>
+          <text class="last-time" wx:if="{{item.lastConsumerTime}}">({{item.lastConsumerTime}})</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
   <t-fab class="add-button" icon="add" bind:click="gotoMemberForm" aria-label="新增用户"></t-fab>
 </view>
