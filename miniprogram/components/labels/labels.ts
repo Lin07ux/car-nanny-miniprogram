@@ -1,4 +1,4 @@
-import { getLabelList, createLabel } from '../../services/label'
+import { getLabelList, createLabel, deleteLabel } from '../../services/label'
 
 Component({
   properties: {
@@ -38,7 +38,19 @@ Component({
         wx.showToast({ title: '获取标签失败', icon: 'error' })
       })
     },
-    handeLabelClick(e: WechatMiniprogram.CustomEvent) {
+    handlePress(e: WechatMiniprogram.CustomEvent) {
+      const { index } = e.currentTarget.dataset
+      const label = this.data.labels[index]
+
+      wx.showModal({
+        content: `确定要删除 [${label.name}] 标签吗`,
+        confirmText: '删除',
+        confirmColor: '#F56C6C',
+        cancelColor: '#424243',
+        success: (res: WechatMiniprogram.ShowModalSuccessCallbackResult) => res.confirm && this.deleteLabel(index)
+      })
+    },
+    handeClick(e: WechatMiniprogram.CustomEvent) {
       const { index } = e.currentTarget.dataset
       const label = this.data.labels[index]
   
@@ -65,6 +77,19 @@ Component({
           wx.showToast({ title: err.message })
         }
         this.setData({ submitting: false })
+      })
+    },
+    deleteLabel(index: number) {
+      const label = this.data.labels[index]
+      
+      wx.showLoading({ title: '' })
+      deleteLabel(label.id).then(() => {
+        wx.hideLoading()
+        this.data.labels.splice(index, 1)
+        this.setData({ labels: this.data.labels })
+      }).catch((err: IHttpError) => {
+        wx.hideLoading()
+        wx.showToast({ title: err.message })
       })
     },
     handleInput(e: WechatMiniprogram.Input) {

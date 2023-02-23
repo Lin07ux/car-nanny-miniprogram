@@ -12,7 +12,8 @@
         wx:key="id"
         size="large"
         variant="{{item.selected ? 'light' : 'outline'}}"
-        bind:click="handeLabelClick"
+        bindlongpress="handlePress"
+        bind:click="handeClick"
         data-index="{{index}}"
       >{{item.name}}</t-tag>
       <t-tag class="item input {{focus ? 'focus' : ''}}" size="large" variant="light">
