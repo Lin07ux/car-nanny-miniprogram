@@ -25,6 +25,11 @@
 .btn--confirm {
   color: #0052d9;
 }
+
+.loading {
+  margin: 2em;
+}
+
 .labels {
   display: flex;
   padding: 1em 1em 2em;

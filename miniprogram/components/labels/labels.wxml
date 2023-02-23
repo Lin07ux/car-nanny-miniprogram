@@ -5,7 +5,8 @@
       <view class="title">设置标签</view>
       <view class="btn btn--confirm" aria-role="button" bindtap="confirm">确定</view>
     </view>
-    <view class="labels">
+    <t-loading wx:if="{{!loaded}}" theme="dots" size="60rpx" class="loading" />
+    <view wx:else class="labels">
       <t-tag
         class="item"
         wx:for="{{labels}}"
