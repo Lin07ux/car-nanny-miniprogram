@@ -5,6 +5,7 @@ export const UPLOAD_IMAGE = 'upload/image'
 
 // 标签
 export const LABEL_LIST = 'labels'
+export const LABEL_CREATE = 'labels'
 
 // 会员
 export const MEMBER_LIST = 'members'

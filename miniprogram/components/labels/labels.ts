@@ -1,4 +1,4 @@
-import { getLabelList } from '../../services/label'
+import { getLabelList, createLabel } from '../../services/label'
 
 Component({
   properties: {
@@ -14,6 +14,9 @@ Component({
   data: {
     loaded: false,
     labels: <Array<{id: number, name: string, selected: boolean}>>[],
+    submitting: false,
+    focus: false,
+    name: '',
   },
   observers: {
     visible: function(visible: boolean) {
@@ -47,6 +50,31 @@ Component({
     confirm() {
       const selected = this.data.labels.filter(label => label.selected).map(label => ({ id: label.id, name: label.name }))
       this.triggerEvent('confirm', { selected })
+    },
+    createLabel() {
+      if (! this.data.name) {
+        return
+      }
+
+      this.setData({ submitting: true })
+      createLabel(this.data.name).then(res => {
+        this.data.labels.push(Object.assign(res, { selected: true }))
+        this.setData({ labels: this.data.labels, submitting: false, name: '' })
+      }).catch((err: IHttpError) => {
+        if (this.data.visible) {
+          wx.showToast({ title: err.message })
+        }
+        this.setData({ submitting: false })
+      })
+    },
+    handleInput(e: WechatMiniprogram.Input) {
+      this.setData({ name: e.detail.value || '' })
+    },
+    handleFocus() {
+      this.setData({ focus: true })
+    },
+    handleBlur() {
+      this.setData({ focus: false })
     },
   },
 })

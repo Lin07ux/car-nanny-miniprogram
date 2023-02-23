@@ -9,11 +9,25 @@
       <t-tag
         class="item"
         wx:for="{{labels}}"
-        wx:key="id" size="large"
+        wx:key="id"
+        size="large"
         variant="{{item.selected ? 'light' : 'outline'}}"
         bind:click="handeLabelClick"
         data-index="{{index}}"
       >{{item.name}}</t-tag>
+      <t-tag class="item input {{focus ? 'focus' : ''}}" size="large" variant="light">
+        <input
+          type="text"
+          confirm-type="done"
+          placeholder="自定义标签"
+          value="{{name}}"
+          disabled="{{submitting}}"
+          bindconfirm="createLabel"
+          bindinput="handleInput"
+          bindfocus="handleFocus"
+          bindblur="handleBlur"
+        />
+      </t-tag>
     </view>
   </view>
 </t-popup>

@@ -2,6 +2,7 @@
   color: #333;
   background: #fff;
   min-height: 40vh;
+  max-height: 65vh;
 }
 .top-bar {
   display: flex;
@@ -32,4 +33,16 @@
 }
 .item {
   margin: 0 1em 1.5em 0;
+  padding: 3px 12px !important;
+  height: auto !important;
+}
+.input.focus {
+  border-color: #409EFF !important;
+}
+.input input {
+  width: 5em;
+  height: var(--td-tag-large-height, 56rpx);
+  line-height: var(--td-tag-large-height, 56rpx);
+  font-size: var(--td-tag-large-font-size, var(--td-font-size-base, 28rpx));
+  background-color: transparent;
 }
