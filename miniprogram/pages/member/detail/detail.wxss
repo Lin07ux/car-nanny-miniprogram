@@ -38,6 +38,11 @@
 .tags .tag+.tag {
   margin-left: 1em;
 }
+.tags .add-tag {
+  vertical-align: middle;
+  margin-left: 1em;
+  color: #409EFF;
+}
 
 .statistic .content {
   display: flex;

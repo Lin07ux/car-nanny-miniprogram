@@ -3,6 +3,8 @@ import { getMemberDetail, getMemberActions } from '../../../services/member'
 Page({
   data: {
     loading: false,
+    visible: false,
+    selectedIds: <number[]>[],
     detail: {
       id: 0,
       tel: '',
@@ -46,6 +48,7 @@ Page({
       // @ts-ignore
       this.setData({ detail: res })
       this.loadActions()
+      this.setSelectedIds()
     }).catch((err: IHttpError) => {
       wx.hideLoading()
       wx.showToast({ title: err.message, icon: 'error' })
@@ -61,5 +64,23 @@ Page({
       wx.hideLoading()
       wx.showToast({ title: err.message, icon: 'error' })
     })
+  },
+  setSelectedIds() {
+    this.setData({ selectedIds: this.data.detail.labels.map((label: { id: number}) => label.id)})
+  },
+  previewPhotos() {
+    wx.previewImage({ urls: this.data.detail.photos })
+  },
+  callTelphone() {
+    wx.makePhoneCall({ phoneNumber: this.data.detail.tel })
+  },
+  handleAddTag() {
+    this.setData({ visible: true })
+  },
+  handleCancel() {
+    this.setData({ visible: false })
+  },
+  handleConform(e: WechatMiniprogram.CustomEvent) {
+    console.log(e)
   },
 })

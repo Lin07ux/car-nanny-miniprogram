@@ -1,9 +1,9 @@
 <view class="header wrapper">
-  <image class="cover" src="{{detail.photos[0]}}" mode="aspectFill"/>
+  <image class="cover" src="{{detail.photos[0]}}" mode="aspectFill" bindtap="previewPhotos"/>
   <view class="content">
     <view class="name">{{detail.name}}</view>
     <view class="car-no">{{detail.carLicenseNo}}</view>
-    <button class="call" size="mini" type="primary">
+    <button class="call" size="mini" type="primary" bindtap="callTelphone">
       <t-icon name="call" size="20" />
       <text>{{detail.tel}}</text>
     </button>
@@ -15,7 +15,8 @@
 <view class="tags wrapper">
   <text class="label">标签管理</text>
   <view>
-    <t-tag class="tag" wx:for="{{detail.labels}}" wx:key="id" variant="outline">{{item.name}}</t-tag>
+    <t-tag class="tag" wx:for="{{detail.labels}}" wx:key="id" size="large" variant="outline">{{item.name}}</t-tag>
+    <t-icon class="add-tag" name="add-circle" size="22" bind:click="handleAddTag"></t-icon>
   </view>
 </view>
 
@@ -39,7 +40,7 @@
 
 <view class="actions wrapper">
   <text class="label">消费记录</text>
-  <view wx:for="{{actions.list}}" wx:key="id">
+  <block wx:for="{{actions.list}}" wx:key="id">
     <view class="item">
       <view class="detail">
         <view class="title">{{item.title}}</view>
@@ -49,6 +50,8 @@
       <view class="count" wx:else>{{item.count}}</view>
     </view>
     <t-divider/>
-  </view>
+  </block>
   <view class="empty" wx:if="{{!actions.list.length}}">暂无记录</view>
 </view>
+
+<c-labels selected="{{selectedIds}}" visible="{{visible}}" bindcancel="handleCancel" bindconfirm="handleConform"/>
