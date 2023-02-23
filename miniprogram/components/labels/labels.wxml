@@ -1,0 +1,19 @@
+<t-popup visible="{{visible}}" placement="bottom" close-on-overlay-click="{{false}}">
+  <view class="wrapper">
+    <view class="top-bar">
+      <view class="btn btn--cancel" aria-role="button" bindtap="cancel">取消</view>
+      <view class="title">设置标签</view>
+      <view class="btn btn--confirm" aria-role="button" bindtap="confirm">确定</view>
+    </view>
+    <view class="labels">
+      <t-tag
+        class="item"
+        wx:for="{{labels}}"
+        wx:key="id" size="large"
+        variant="{{item.selected ? 'light' : 'outline'}}"
+        bind:click="handeLabelClick"
+        data-index="{{index}}"
+      >{{item.name}}</t-tag>
+    </view>
+  </view>
+</t-popup>

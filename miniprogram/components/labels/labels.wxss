@@ -1,0 +1,35 @@
+.wrapper {
+  color: #333;
+  background: #fff;
+  min-height: 40vh;
+}
+.top-bar {
+  display: flex;
+  align-items: center;
+  height: 116rpx;
+}
+.title {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: 36rpx;
+}
+.btn {
+  font-size: 32rpx;
+  padding: 32rpx;
+}
+.btn--cancel {
+  color: rgba(0, 0, 0, .6);
+}
+.btn--confirm {
+  color: #0052d9;
+}
+.labels {
+  display: flex;
+  padding: 1em 1em 2em;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.item {
+  margin: 0 1em 1.5em 0;
+}
