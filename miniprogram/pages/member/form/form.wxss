@@ -18,3 +18,10 @@
   color: #8D9095;
   margin: .5em 1em;
 }
+.labels {
+  text-align: right;
+  margin: -.15em 0;
+}
+.labels .item {
+  margin: .15em .5em .15em 0;
+}

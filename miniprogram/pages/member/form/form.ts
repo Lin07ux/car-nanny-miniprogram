@@ -1,7 +1,6 @@
 import { formatDate } from '../../../utils/util'
 import { uploadImage } from '../../../services/uploader'
 import { createMember } from '../../../services/member'
-import { getLabelList } from '../../../services/label'
 
 type uploaderFile = {
   url: string,
@@ -10,29 +9,24 @@ type uploaderFile = {
   loading: boolean,
 }
 
-type labelItem = {
-  id: number,
-  name: string,
-}
-
 const carLicenseNoPattern = /^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z](([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))$/
 
 Page({
   data: {
     error: '',
     today: formatDate(),
-    labels: <labelItem[]>[],
-    currentLabel: '',
+    visible: false,
     images: {
       car: <uploaderFile[]>[],
       vin: <uploaderFile[]>[],
     },
+    labels: [],
     form: {
       name: '',
       birthday: '',
       tel: '',
       carLicenseNo: '',
-      label: '',
+      labelIds: '',
       car: '',
       vin: '',
     },
@@ -63,7 +57,7 @@ Page({
           }
         },
       }, {
-        name: 'label',
+        name: 'labelIds',
         rules: { required: true, message: '请选择车主标签' }
       }, {
         name: 'car',
@@ -84,30 +78,10 @@ Page({
         this.data.form.tel = keyword
       }
     }
-
-    this.loadLabels()
-  },
-  loadLabels() {
-    getLabelList().then(res => {
-      const labels: labelItem[] = []
-      for (const key in res) {
-        labels.push({ id: +key, name: res[key] })
-      }
-      this.setData({ labels })
-    }).catch(() => this.setData({ error: '获取标签列表失败' }))
   },
   formInput(e: WechatMiniprogram.Input) {
     const { field } = e.currentTarget.dataset
     this.setData({ [`form.${field}`]: e.detail.value })
-  },
-  labelChange(e: WechatMiniprogram.PickerChange) {
-    const value = e.detail.value as string
-    const label = this.data.labels[+value]
-
-    this.setData({
-      currentLabel: label.name,
-      'form.label': label.id,
-    })
   },
   handleSelect(e: WechatMiniprogram.CustomEvent) {
     const { field } = e.currentTarget.dataset
@@ -131,6 +105,21 @@ Page({
       [`form.${field}`]: '',
     })
   },
+  handleLabelShow() {
+    this.setData({ visible: true })
+  },
+  handleLabelCancel() {
+    this.setData({ visible: false })
+  },
+  handleLabelConfirm(e: WechatMiniprogram.CustomEvent) {
+    const { selected } = e.detail
+
+    this.setData({
+      visible: false,
+      labels: selected,
+      'form.labelIds': selected.map((label: { id: number }) => label.id)
+    })
+  },
   submit() {
     this.selectComponent('#form').validate((valid: boolean, errors: Array<{ message: string }>) => {
       if (!valid) {
@@ -138,12 +127,12 @@ Page({
       }
 
       wx.showLoading({ title: '上传图片中' })
-      Promise.all([this.uploadImage('car'), this.uploadImage('vin')])
+      Promise.all([this._uploadImage('car'), this._uploadImage('vin')])
         .then(() => {
           wx.showLoading({ title: '提交创建中' })
           return createMember(this.data.form)
         }).then((res: { id: number }) => {
-          this.getOpenerEventChannel().emit('created')
+          this.getOpenerEventChannel()?.emit('created')
           wx.showToast({ title: '创建成功', icon: 'success' })
           setTimeout(() => wx.redirectTo({ url: `/pages/member/detail/detail?id=${res.id}` }), 600)
         }).catch((err: IHttpError) => {
@@ -152,7 +141,7 @@ Page({
         })
     })
   },
-  uploadImage(type: 'car'|'vin'): any {
+  _uploadImage(type: 'car'|'vin'): any {
     const image = this.data.images[type][0] || {}
     if (!image.url || image.href) {
       return true

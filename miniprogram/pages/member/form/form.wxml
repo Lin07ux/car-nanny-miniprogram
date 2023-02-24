@@ -26,10 +26,11 @@
         </mp-cell>
       </label>
       <label class="justify required">
-        <mp-cell prop="label" title="车主标签" link>
-          <picker mode="selector" range="{{labels}}" range-key="name" bindchange="labelChange" data-field="label">
-            <input type="text" class="weui-input" value="{{currentLabel}}" disabled placeholder="请选择车主标签"/>
-          </picker>
+        <mp-cell prop="label" title="车主标签">
+          <mp-icon slot="footer" icon="arrow" size="{{12}}" color="#A3A6AD" bindtap="handleLabelShow"></mp-icon>
+          <view class="labels" bindtap="handleLabelShow">
+            <t-tag class="item" wx:for="{{labels}}" wx:key="id" size="large" variant="outline">{{item.name}}</t-tag>
+          </view>
         </mp-cell>
       </label>
       <label class="justify required">
@@ -66,4 +67,6 @@
     </mp-cells>
     <button class="weui-btn" type="primary" bindtap="submit">提交</button>
   </mp-form>
+
+  <c-labels selected="{{form.labelIds}}" visible="{{visible}}" bindcancel="handleLabelCancel" bindconfirm="handleLabelConfirm"/>
 </view>
