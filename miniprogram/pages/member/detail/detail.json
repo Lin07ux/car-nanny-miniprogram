@@ -2,6 +2,7 @@
   "navigationBarTitleText": "会员详情",
   "usingComponents": {
     "t-divider": "tdesign-miniprogram/divider/divider",
+    "t-popup": "tdesign-miniprogram/popup/popup",
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-tag": "tdesign-miniprogram/tag/tag",
     "c-labels": "/components/labels/labels"

@@ -1,4 +1,4 @@
-import { getMemberDetail, getMemberActions, updateMemberLabels } from '../../../services/member'
+import { getMemberDetail, getMemberActions, updateMemberLabels, memberRecharge } from '../../../services/member'
 
 Page({
   data: {
@@ -6,6 +6,12 @@ Page({
     _loading: false,
     visible: false,
     selectedIds: <number[]>[],
+    recharge: {
+      show: false,
+      amount: '',
+      counts: '',
+      desc: '',
+    },
     detail: {
       id: 0,
       tel: '',
@@ -78,13 +84,49 @@ Page({
   callTelphone() {
     wx.makePhoneCall({ phoneNumber: this.data.detail.tel })
   },
+  handleRecharge() {
+    this.setData({ 'recharge.show': true })
+  },
+  handleConsume() {
+    //
+  },
+  handleRechargeCancel() {
+    this.setData({ 'recharge.show': false })
+  },
+  handleRechargeConfirm(e: WechatMiniprogram.FormSubmit) {
+    const desc = e.detail.value.desc
+    const amount = +this.data.recharge.amount
+    const counts = +this.data.recharge.counts
+    if (amount <= 0 || counts <= 0) {
+      wx.showToast({ title: '请输入有效的充值金额和充值次数', icon: 'none' })
+      return
+    }
+
+    wx.showLoading({ title: '充值中' })
+    memberRecharge(this.data.detail.id, {amount, counts, desc}).then(res => {
+      this.setData({
+        'recharge': { show: false, amount: '', counts: '', desc: '' },
+        'detail.canWashCount': res.canWashCount || 0,
+        'detail.rechargeMoney' : res.rechargeMoney || 0,
+      })
+      this._loadActions()
+      wx.hideLoading()
+      wx.showToast({ title: '充值成功', icon: 'success' })
+    }).catch((err: IHttpError) => {
+      wx.hideLoading()
+      wx.showToast({ title: err.message })
+    })
+  },
+  handleInput(e: WechatMiniprogram.Input) {
+    this.setData({ [e.currentTarget.dataset.field]: e.detail.value })
+  },
   handleAddTag() {
     this.setData({ visible: true })
   },
-  handleCancel() {
+  handleLabelCancel() {
     this.setData({ visible: false })
   },
-  handleConfirm(e: WechatMiniprogram.CustomEvent) {
+  handleLabelConfirm(e: WechatMiniprogram.CustomEvent) {
     const { selected } = e.detail
     const labelIds = selected.map((label: { id: number }) => label.id)
     

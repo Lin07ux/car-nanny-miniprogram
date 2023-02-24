@@ -28,10 +28,12 @@
     <view class="item">
       <view class="title">{{detail.rechargeMoney / 100}}</view>
       <view>充值金额</view>
+      <button class="operator" type="primary" size="mini" bindtap="handleRecharge">充值</button>
     </view>
     <view class="item">
       <view class="title">{{detail.canWashCount}}</view>
       <view>剩余洗车次数</view>
+      <button class="operator" type="warn" size="mini" bindtap="handleConsume">消费</button>
     </view>
   </view>
 </view>
@@ -54,4 +56,30 @@
   <view class="empty" wx:if="{{!actions.list.length}}">暂无记录</view>
 </view>
 
-<c-labels selected="{{selectedIds}}" visible="{{visible}}" bindcancel="handleCancel" bindconfirm="handleConfirm"/>
+<c-labels selected="{{selectedIds}}" visible="{{visible}}" bindcancel="handleLabelCancel" bindconfirm="handleLabelConfirm"/>
+
+<t-popup visible="{{recharge.show}}" placement="bottom">
+  <form bindsubmit="handleRechargeConfirm">
+    <view class="recharge">
+      <view class="header">
+        <view class="btn btn--cancel" aria-role="button" bindtap="handleRechargeCancel">取消</view>
+        <view class="title">洗车充值</view>
+        <button class="btn btn--confirm {{!recharge.amount || !recharge.counts ? 'disabled' : ''}}" form-type="submit">充值</button>
+      </view>
+      <view class="form">
+        <view class="page-section">
+          <view class="weui-cells__title">充值金额</view>
+          <input class="weui-input" type="digit" value="{{recharge.amount}}" bindinput="handleInput" data-field="recharge.amount" placeholder-class="placeholder" placeholder="请输出充值金额（单位：元）" />
+        </view>
+        <view class="page-section">
+          <view class="weui-cells__title">充值次数</view>
+          <input class="weui-input" type="number" value="{{recharge.counts}}" bindinput="handleInput" data-field="recharge.counts" placeholder-class="placeholder" placeholder="请输入充值的洗车次数" />
+        </view>
+        <view class="page-section">
+          <view class="weui-cells__title">充值说明</view>
+          <textarea class="weui-input desc" name="desc" maxlength="200" value="{{recharge.desc}}" placeholder-class="placeholder" placeholder="请填写充值说明（可空）" />
+        </view>
+      </view>
+    </view>
+  </form>
+</t-popup>

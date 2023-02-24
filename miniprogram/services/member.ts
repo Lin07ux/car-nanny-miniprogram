@@ -1,16 +1,18 @@
 import { get, post, put } from '../utils/http'
-import { MEMBER_LIST, MEMBER_CREATE, MEMBER_DETAIL, MEMBER_ACTIONS, MEMBER_UPDATE_LABELS } from '../constants/apis'
+import { MEMBER_LIST, MEMBER_CREATE, MEMBER_DETAIL, MEMBER_ACTIONS, MEMBER_UPDATE_LABELS, MEMBER_RECHARGE } from '../constants/apis'
+
+// @ts-ignore
+const replaceId = (uri: string, id: number): string => uri.replace('_id_', id)
 
 type MemberListResult = { list: object[], lastId: number, isEnd: boolean }
 export const getMemberList = (keyword?: string, lastId?: number): Promise<MemberListResult> => get(MEMBER_LIST, { keyword, lastId })
 
 export const createMember = (data: object): Promise<any> => post(MEMBER_CREATE, data)
 
-// @ts-ignore
-export const getMemberDetail = (id: number): Promise<object> => get(MEMBER_DETAIL.replace('_id_', id))
+export const getMemberDetail = (id: number): Promise<object> => get(replaceId(MEMBER_DETAIL, id))
 
-// @ts-ignore
-export const getMemberActions = (id: number): Promise<object> => get(MEMBER_ACTIONS.replace('_id_', id))
+export const getMemberActions = (id: number): Promise<object> => get(replaceId(MEMBER_ACTIONS, id))
 
-// @ts-ignore
-export const updateMemberLabels = (id: number, labelIds: number[]): Promise<any> => put(MEMBER_UPDATE_LABELS.replace('_id_', id), { labelIds })
+export const updateMemberLabels = (id: number, labelIds: number[]): Promise<any> => put(replaceId(MEMBER_UPDATE_LABELS, id), { labelIds })
+
+export const memberRecharge = (id: number, data: {amount: number, counts: number, desc: string}): Promise<{ rechargeMoney: number, canWashCount: number }> => post(replaceId(MEMBER_RECHARGE, id), data)
