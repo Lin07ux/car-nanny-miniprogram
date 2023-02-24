@@ -5,31 +5,37 @@
       <view class="title">设置标签</view>
       <view class="btn btn--confirm" aria-role="button" bindtap="confirm">确定</view>
     </view>
-    <t-loading wx:if="{{!loaded}}" theme="dots" size="60rpx" class="loading" />
-    <view wx:else class="labels">
-      <t-tag
-        class="item"
-        wx:for="{{labels}}"
-        wx:key="id"
-        size="large"
-        variant="{{item.selected ? 'light' : 'outline'}}"
-        bindlongpress="handlePress"
-        bind:click="handeClick"
-        data-index="{{index}}"
-      >{{item.name}}</t-tag>
-      <t-tag class="item input {{focus ? 'focus' : ''}}" size="large" variant="light">
-        <input
-          type="text"
-          confirm-type="done"
-          placeholder="自定义标签"
-          value="{{name}}"
-          disabled="{{submitting}}"
-          bindconfirm="createLabel"
-          bindinput="handleInput"
-          bindfocus="handleFocus"
-          bindblur="handleBlur"
-        />
-      </t-tag>
+    <view class="content">
+      <t-loading wx:if="{{!loaded}}" theme="dots" size="60rpx" class="loading" />
+      <view wx:else class="labels">
+        <t-tag
+          class="item {{item.editing ? 'edit' : ''}} {{item.focusing ? 'focus' : ''}} {{item.error ? 'error' : ''}}"
+          wx:for="{{labels}}"
+          wx:key="id"
+          size="large"
+          variant="{{item.selected ? 'light' : 'outline'}}"
+          bindlongpress="handlePress"
+          bind:click="handeClick"
+          data-index="{{index}}"
+        >
+          <text wx:if="{{item.id > 0 && !item.editing}}" class="name">{{item.name}}</text>
+          <input wx:else
+            class="input"
+            type="text"
+            confirm-type="done"
+            placeholder="自定义标签"
+            cursor="{{-1}}"
+            focus="{{true}}"
+            value="{{item.input}}"
+            data-index="{{index}}"
+            disabled="{{item.submitting}}"
+            bindconfirm="handleSubmit"
+            bindfocus="handleFocus"
+            bindblur="handleBlur"
+          />
+        </t-tag>
+      </view>
     </view>
+    <view class="tips">单击标签以选中/取消选中；双击标签以编辑；长按标签以删除。</view>
   </view>
 </t-popup>
