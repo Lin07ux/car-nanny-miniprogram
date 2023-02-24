@@ -54,4 +54,4 @@
   <view class="empty" wx:if="{{!actions.list.length}}">暂无记录</view>
 </view>
 
-<c-labels selected="{{selectedIds}}" visible="{{visible}}" bindcancel="handleCancel" bindconfirm="handleConform"/>
+<c-labels selected="{{selectedIds}}" visible="{{visible}}" bindcancel="handleCancel" bindconfirm="handleConfirm"/>

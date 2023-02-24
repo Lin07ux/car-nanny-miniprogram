@@ -1,8 +1,9 @@
-import { getMemberDetail, getMemberActions } from '../../../services/member'
+import { getMemberDetail, getMemberActions, updateMemberLabels } from '../../../services/member'
 
 Page({
   data: {
-    loading: false,
+    _id: 0,
+    _loading: false,
     visible: false,
     selectedIds: <number[]>[],
     detail: {
@@ -24,38 +25,41 @@ Page({
     },
   },
   onLoad(query: { id?: number }) {
-    this.loadDetail(+(query.id || 0))
+    this.setData({ _id: query.id || 0 })
+  },
+  onShow() {
+    this._loadDetail()
   },
   onPullDownRefresh() {
-    this.loadDetail(this.data.detail.id)
+    this._loadDetail()
   },
   onReachBottom: function() {
-    this.data.actions.isEnd || this.loadActions()
+    this.data.actions.isEnd || this._loadActions()
   },
-  loadDetail(id: number): any {
-    if (id <= 0) {
+  _loadDetail(): any {
+    if (this.data._id <= 0) {
       return wx.showToast({ title: '会员信息不存在', icon: 'error' })
     }
 
-    if (this.data.loading) {
+    if (this.data._loading) {
       return
     }
 
     wx.showLoading({ title: '' })
-    this.setData({ loading: true })
-    getMemberDetail(id).then(res => {
+    this.setData({ _loading: true })
+    getMemberDetail(this.data._id).then(res => {
       wx.hideLoading()
       // @ts-ignore
       this.setData({ detail: res })
-      this.loadActions()
-      this.setSelectedIds()
+      this._loadActions()
+      this._setSelectedIds()
     }).catch((err: IHttpError) => {
       wx.hideLoading()
       wx.showToast({ title: err.message, icon: 'error' })
       setTimeout(() => wx.navigateBack(), 600)
-    }).finally(() => this.setData({ loading: false }))
+    }).finally(() => this.setData({ _loading: false }))
   },
-  loadActions() {
+  _loadActions() {
     wx.showLoading({ title: '' })
     getMemberActions(this.data.detail.id).then(res => {
       wx.hideLoading()
@@ -65,7 +69,7 @@ Page({
       wx.showToast({ title: err.message, icon: 'error' })
     })
   },
-  setSelectedIds() {
+  _setSelectedIds() {
     this.setData({ selectedIds: this.data.detail.labels.map((label: { id: number}) => label.id)})
   },
   previewPhotos() {
@@ -80,7 +84,17 @@ Page({
   handleCancel() {
     this.setData({ visible: false })
   },
-  handleConform(e: WechatMiniprogram.CustomEvent) {
-    console.log(e)
+  handleConfirm(e: WechatMiniprogram.CustomEvent) {
+    const { selected } = e.detail
+    const labelIds = selected.map((label: { id: number }) => label.id)
+    
+    wx.showLoading({ title: '' })
+    updateMemberLabels(this.data.detail.id, labelIds).then(() => {
+      this.setData({ visible: false, 'detail.labels': selected })
+      wx.hideLoading()
+    }).catch((err: IHttpError) => {
+      wx.hideLoading()
+      wx.showToast({ title: err.message, icon: 'none' })
+    })
   },
 })

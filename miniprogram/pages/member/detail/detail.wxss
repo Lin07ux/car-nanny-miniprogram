@@ -35,12 +35,10 @@
   vertical-align: middle;
 }
 
-.tags .tag+.tag {
-  margin-left: 1em;
+.tags .tag {
+  margin: 0 1em 1em 0;
 }
 .tags .add-tag {
-  vertical-align: middle;
-  margin-left: 1em;
   color: #409EFF;
 }
 
