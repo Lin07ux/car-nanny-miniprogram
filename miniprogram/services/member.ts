@@ -11,7 +11,7 @@ export const createMember = (data: object): Promise<any> => post(MEMBER_CREATE, 
 
 export const getMemberDetail = (id: number): Promise<object> => get(replaceId(MEMBER_DETAIL, id))
 
-export const getMemberActions = (id: number): Promise<object> => get(replaceId(MEMBER_ACTIONS, id))
+export const getMemberActions = (id: number, lastId: number): Promise<{ lastId: number, isEnd: boolean, list: Array<object> }> => get(replaceId(MEMBER_ACTIONS, id), { lastId })
 
 export const updateMemberLabels = (id: number, labelIds: number[]): Promise<any> => put(replaceId(MEMBER_UPDATE_LABELS, id), { labelIds })
 

@@ -40,7 +40,8 @@ Page({
     this._loadDetail()
   },
   onReachBottom: function() {
-    this.data.actions.isEnd || this._loadActions()
+    console.log(this.data.actions.isEnd, this.data.actions.lastId)
+    this.data.actions.isEnd || this._loadActions(this.data.actions.lastId)
   },
   _loadDetail(): any {
     if (this.data._id <= 0) {
@@ -65,11 +66,14 @@ Page({
       setTimeout(() => wx.navigateBack(), 600)
     }).finally(() => this.setData({ _loading: false }))
   },
-  _loadActions() {
+  _loadActions(lastId: number = 0) {
     wx.showLoading({ title: '' })
-    getMemberActions(this.data.detail.id).then(res => {
+    getMemberActions(this.data.detail.id, lastId).then(res => {
+      if (lastId > 0) {
+        res.list = this.data.actions.list.concat(res.list)
+      }
+      this.setData({ actions: res })
       wx.hideLoading()
-      this.setData({ actions: res as { lastId: number, isEnd: boolean, list: Array<object> }})
     }).catch((err: IHttpError) => {
       wx.hideLoading()
       wx.showToast({ title: err.message, icon: 'error' })
