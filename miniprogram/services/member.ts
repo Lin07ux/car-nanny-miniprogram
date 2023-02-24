@@ -1,5 +1,5 @@
 import { get, post, put } from '../utils/http'
-import { MEMBER_LIST, MEMBER_CREATE, MEMBER_DETAIL, MEMBER_ACTIONS, MEMBER_UPDATE_LABELS, MEMBER_RECHARGE } from '../constants/apis'
+import { MEMBER_LIST, MEMBER_CREATE, MEMBER_DETAIL, MEMBER_ACTIONS, MEMBER_UPDATE_LABELS, MEMBER_RECHARGE , MEMBER_CONSUME} from '../constants/apis'
 
 // @ts-ignore
 const replaceId = (uri: string, id: number): string => uri.replace('_id_', id)
@@ -16,3 +16,5 @@ export const getMemberActions = (id: number, lastId: number): Promise<{ lastId: 
 export const updateMemberLabels = (id: number, labelIds: number[]): Promise<any> => put(replaceId(MEMBER_UPDATE_LABELS, id), { labelIds })
 
 export const memberRecharge = (id: number, data: {amount: number, counts: number, desc: string}): Promise<{ rechargeMoney: number, canWashCount: number }> => post(replaceId(MEMBER_RECHARGE, id), data)
+
+export const memberConsume = (id: number): Promise<{ canWashCount: number }> => post(replaceId(MEMBER_CONSUME, id))

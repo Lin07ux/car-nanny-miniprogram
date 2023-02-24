@@ -1,4 +1,4 @@
-import { getMemberDetail, getMemberActions, updateMemberLabels, memberRecharge } from '../../../services/member'
+import { getMemberDetail, getMemberActions, updateMemberLabels, memberRecharge, memberConsume } from '../../../services/member'
 
 Page({
   data: {
@@ -55,7 +55,6 @@ Page({
     wx.showLoading({ title: '' })
     this.setData({ _loading: true })
     getMemberDetail(this.data._id).then(res => {
-      wx.hideLoading()
       // @ts-ignore
       this.setData({ detail: res })
       this._loadActions()
@@ -91,9 +90,6 @@ Page({
   handleRecharge() {
     this.setData({ 'recharge.show': true })
   },
-  handleConsume() {
-    //
-  },
   handleRechargeCancel() {
     this.setData({ 'recharge.show': false })
   },
@@ -123,6 +119,32 @@ Page({
   },
   handleInput(e: WechatMiniprogram.Input) {
     this.setData({ [e.currentTarget.dataset.field]: e.detail.value })
+  },
+  handleConsume() {
+    if (this.data.detail.canWashCount < 1) {
+      wx.showToast({ title: '请先充值再消费', icon: 'none' })
+      return
+    }
+
+    wx.showModal({
+      title: '消费确认',
+      content: '确认要消费【1 次】该用户的洗车次数吗？',
+      success: (res: WechatMiniprogram.ShowModalSuccessCallbackResult) => {
+        if (res.confirm) {
+          this._doConsume()
+        }
+      }
+    })    
+  },
+  _doConsume() {
+    wx.showLoading({ title: '消费洗车次数' })
+    memberConsume(this.data.detail.id).then(res => {
+      this.setData({ 'detail.canWashCount': res.canWashCount })
+      this._loadActions()
+    }).catch((err: IHttpError) => {
+      wx.hideLoading()
+      wx.showToast({ title: err.message, icon: 'none' })
+    })
   },
   handleAddTag() {
     this.setData({ visible: true })
