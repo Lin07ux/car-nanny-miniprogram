@@ -18,6 +18,12 @@
   color: #8D9095;
   margin: .5em 1em;
 }
+.labels-arrow {
+  padding-left: .5em;
+}
+.labels-input {
+  margin-top: 4px;
+}
 .labels {
   text-align: right;
   margin: -.15em 0;
