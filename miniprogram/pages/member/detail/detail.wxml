@@ -1,5 +1,5 @@
 <view class="header wrapper">
-  <image class="cover" src="{{detail.photos[0]}}" mode="aspectFill" bindtap="previewPhotos"/>
+  <image class="cover" src="{{detail.photos.car}}" mode="aspectFill" bindtap="previewPhotos"/>
   <view class="content" wx:if="{{detail.id > 0}}">
     <view class="name">
       <text>{{detail.name}}</text>

@@ -21,8 +21,8 @@ Page({
       canWashCount: 0,
       rechargeMoney: 0,
       profile: { birthday: '' },
-      photos: [],
-      labels: [],
+      photos: <{car: string, vin: string}>{},
+      labels: <{id: number, name: string}[]>[],
     },
     actions: {
       lastId: 0,
@@ -32,8 +32,6 @@ Page({
   },
   onLoad(query: { id?: number }) {
     this.setData({ _id: query.id || 0 })
-  },
-  onShow() {
     this._loadDetail()
   },
   onPullDownRefresh() {
@@ -42,9 +40,10 @@ Page({
   onReachBottom: function() {
     this.data.actions.isEnd || this._loadActions(this.data.actions.lastId)
   },
-  _loadDetail(): any {
+  _loadDetail() {
     if (this.data._id <= 0) {
-      return wx.showToast({ title: '会员信息不存在', icon: 'error' })
+      wx.showToast({ title: '会员信息不存在', icon: 'error' })
+      return
     }
 
     if (this.data._loading) {
@@ -54,7 +53,6 @@ Page({
     wx.showLoading({ title: '' })
     this.setData({ _loading: true })
     getMemberDetail(this.data._id).then(res => {
-      // @ts-ignore
       this.setData({ detail: res })
       this._loadActions()
       this._setSelectedIds()
@@ -81,7 +79,7 @@ Page({
     this.setData({ selectedIds: this.data.detail.labels.map((label: { id: number}) => label.id)})
   },
   previewPhotos() {
-    wx.previewImage({ urls: this.data.detail.photos })
+    wx.previewImage({ urls: Object.values(this.data.detail.photos) })
   },
   callTelphone() {
     wx.makePhoneCall({ phoneNumber: this.data.detail.tel })

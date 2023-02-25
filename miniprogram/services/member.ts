@@ -9,7 +9,7 @@ export const getMemberList = (keyword?: string, lastId?: number): Promise<Member
 
 export const createMember = (data: object): Promise<any> => post(MEMBER_CREATE, data)
 
-export const getMemberDetail = (id: number): Promise<object> => get(replaceId(MEMBER_DETAIL, id))
+export const getMemberDetail = (id: number): Promise<{id: number, tel: string, name: string, carBodyNo: string, carLicenseNo: string, canWashCount: number, rechargeMoney: number, profile: { birthday: string }, photos: {car: string, vin: string}, labels: {id: number, name: string}[],}> => get(replaceId(MEMBER_DETAIL, id))
 
 export const deleteMember = (id: number): Promise<any> => del(replaceId(MEMBER_DELETE, id))
 
