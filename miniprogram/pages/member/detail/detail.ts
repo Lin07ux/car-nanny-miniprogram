@@ -1,4 +1,4 @@
-import { getMemberDetail, getMemberActions, updateMemberLabels, memberRecharge, memberConsume } from '../../../services/member'
+import { getMemberDetail, getMemberActions, updateMemberLabels, memberRecharge, memberConsume, deleteMember } from '../../../services/member'
 
 Page({
   data: {
@@ -40,7 +40,6 @@ Page({
     this._loadDetail()
   },
   onReachBottom: function() {
-    console.log(this.data.actions.isEnd, this.data.actions.lastId)
     this.data.actions.isEnd || this._loadActions(this.data.actions.lastId)
   },
   _loadDetail(): any {
@@ -86,6 +85,61 @@ Page({
   },
   callTelphone() {
     wx.makePhoneCall({ phoneNumber: this.data.detail.tel })
+  },
+  handleMoreActions() {
+    wx.showActionSheet({
+      alertText: '会员管理',
+      itemList: ['编辑会员信息', '删除会员'],
+      itemColor: '#363637',
+      success: (res: WechatMiniprogram.ShowActionSheetSuccessCallbackResult) => {
+        if (res.tapIndex === 0) {
+          this._editMemberInfo()
+        } else if (res.tapIndex === 1) {
+          this._deleteMember()
+        }
+      },
+    })    
+  },
+  _editMemberInfo() {
+    wx.navigateTo({
+      url: '/pages/member/form/form?id='+this.data.detail.id,
+      events: {
+        updated: () => this._loadDetail(),
+      },
+    })
+  },
+  _deleteMember() {
+    wx.showModal({
+      title: '删除确认',
+      content: '确定要删除该会员信息吗？',
+      confirmText: '删除',
+      confirmColor: '#F56C6C',
+      success: (res: WechatMiniprogram.ShowModalSuccessCallbackResult) => {
+        if (res.confirm) {
+          this._doDeleteMember()
+        }
+      }
+    })    
+  },
+  _doDeleteMember() {
+    wx.showLoading({ title: '' })
+    deleteMember(this.data.detail.id).then(() => {
+      this._gotoMemberListPage()
+      wx.hideLoading()
+    }).catch((err: IHttpError) => {
+      wx.hideLoading()
+      wx.showToast({ title: err.message, icon: 'none' })
+    })
+  },
+  _gotoMemberListPage() {
+    const pages = getCurrentPages()
+    const listPage = 'pages/index/index'
+
+    if (pages.length >= 2 && pages[pages.length - 2].route === listPage) {
+      wx.navigateBack()
+    } else {
+      wx.redirectTo({ url: '/'+listPage })
+    }
   },
   handleRecharge() {
     this.setData({ 'recharge.show': true })

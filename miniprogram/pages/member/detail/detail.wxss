@@ -21,6 +21,7 @@
   text-align: center;
 }
 .header .name {
+  position: relative;
   font-size: 1.2em;
   margin-bottom: .4em;
 }
@@ -33,6 +34,14 @@
 }
 .header .call .t-icon {
   vertical-align: middle;
+}
+.header .more {
+  position: absolute;
+  top: 5px;
+  margin-left: 6px;
+  color: #8D9095;
+  border: 1rpx solid #CFD3DC;
+  border-radius: 50%;
 }
 
 .tags .tag {
