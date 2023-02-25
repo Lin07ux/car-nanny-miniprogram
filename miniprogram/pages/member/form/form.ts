@@ -1,6 +1,6 @@
 import { formatDate } from '../../../utils/util'
 import { uploadImage } from '../../../services/uploader'
-import { createMember } from '../../../services/member'
+import { createMember, getMemberDetail, updateMember } from '../../../services/member'
 
 type uploaderFile = {
   url: string,
@@ -13,6 +13,7 @@ const carLicenseNoPattern = /^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙�
 
 Page({
   data: {
+    _id: 0,
     error: '',
     today: formatDate(),
     visible: false,
@@ -20,13 +21,13 @@ Page({
       car: <uploaderFile[]>[],
       vin: <uploaderFile[]>[],
     },
-    labels: [],
+    labels: <{id: number, name: string}[]>[],
     form: {
       name: '',
       birthday: '',
       tel: '',
       carLicenseNo: '',
-      labelIds: '',
+      labelIds: <number[]>[],
       car: '',
       vin: '',
     },
@@ -68,9 +69,16 @@ Page({
       },
     ],
   },
-  onLoad(query : { keyword?: string }) {
-    const keyword = (query.keyword || '').trim()
+  onLoad(query : { id?: number, keyword?: string }) {
+    const id = +(query.id || 0)
+    if (id > 0) {
+      wx.setNavigationBarTitle({ title: '会员编辑' })
+      this.setData({ _id: id })
+      this._loadMemberDetail()
+      return
+    }
 
+    const keyword = (query.keyword || '').trim()
     if (keyword) {
       if (carLicenseNoPattern.test(keyword)) {
         this.data.form.carLicenseNo = keyword
@@ -78,6 +86,32 @@ Page({
         this.data.form.tel = keyword
       }
     }
+  },
+  _loadMemberDetail() {
+    wx.showLoading({ title: '' })
+    getMemberDetail(this.data._id).then(res => {
+      this.setData({
+        labels: res.labels,
+        images: {
+          car: [{ url: res.photos.car, href: res.photos.car, error: false, loading: false }],
+          vin: [{ url: res.photos.vin, href: res.photos.vin, error: false, loading: false }],
+        },
+        form: {
+          tel: res.tel,
+          name: res.name,
+          birthday: res.profile.birthday,
+          carLicenseNo: res.carLicenseNo,
+          labelIds: res.labels.map(label => label.id),
+          car: res.photos.car,
+          vin: res.photos.vin,
+        },
+      })
+      wx.hideLoading()
+    }).catch((err: IHttpError) => {
+      wx.hideLoading()
+      wx.showToast({ title: err.message, icon: 'none' })
+      setTimeout(() => wx.navigateBack(), 600)
+    })
   },
   formInput(e: WechatMiniprogram.Input) {
     const { field } = e.currentTarget.dataset
@@ -89,7 +123,7 @@ Page({
 
     if (detail.tempFilePaths.length) {
       const url = detail.tempFilePaths[0] || ''
-      const file = url ? <uploaderFile>{url, href: '', error: false, loading: false} : null
+      const file = url ? {url, href: '', error: false, loading: false} : null
 
       this.setData({
         [`images.${field}`]: url ? [file] : [],
@@ -126,15 +160,22 @@ Page({
         return this.setData({ error: errors[0]?.message || '完善表单信息后再提交' })
       }
 
+      const isUpdate = this.data._id > 0
       wx.showLoading({ title: '上传图片中' })
       Promise.all([this._uploadImage('car'), this._uploadImage('vin')])
         .then(() => {
           wx.showLoading({ title: '提交创建中' })
-          return createMember(this.data.form)
-        }).then((res: { id: number }) => {
-          this.getOpenerEventChannel()?.emit('created')
-          wx.showToast({ title: '创建成功', icon: 'success' })
-          setTimeout(() => wx.redirectTo({ url: `/pages/member/detail/detail?id=${res.id}` }), 600)
+          return isUpdate ? updateMember(this.data._id, this.data.form) : createMember(this.data.form)
+        }).then((res: { id?: number }) => {
+          if (isUpdate) {
+            this.getOpenerEventChannel()?.emit('updated')
+            wx.showToast({ title: '保存成功', icon: 'success' })
+            setTimeout(() => wx.navigateBack(), 1000)
+          } else {
+            this.getOpenerEventChannel()?.emit('created')
+            wx.showToast({ title: '创建成功', icon: 'success' })
+            setTimeout(() => wx.redirectTo({ url: `/pages/member/detail/detail?id=${res.id}` }), 600)
+          } 
         }).catch((err: IHttpError) => {
           this.setData({ error: err.message })
           wx.hideLoading()
@@ -157,7 +198,7 @@ Page({
 
         this.setData({
           [`images.${type}`]: [image],
-          [`form.${type}`]: res.path,
+          [`form.${type}`]: res.url,
         })
       })
       .catch((err: IHttpError) => {
