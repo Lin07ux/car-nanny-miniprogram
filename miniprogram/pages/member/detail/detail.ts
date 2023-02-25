@@ -154,6 +154,19 @@ Page({
       return
     }
 
+    wx.showModal({
+      title: '充值确认',
+      content: `确定为该用户充值【${amount}元/${counts}次】洗车次数吗？`,
+      confirmText: '充值',
+      confirmColor: '#67C23A',
+      success: (res: WechatMiniprogram.ShowModalSuccessCallbackResult) => {
+        if (res.confirm) {
+          this._doMemberRecharge(amount, counts, desc)
+        }
+      }
+    })    
+  },
+  _doMemberRecharge(amount: number, counts: number, desc: string) {
     wx.showLoading({ title: '充值中' })
     memberRecharge(this.data.detail.id, {amount, counts, desc}).then(res => {
       this.setData({
