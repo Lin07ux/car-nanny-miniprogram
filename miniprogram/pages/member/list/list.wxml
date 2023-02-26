@@ -9,7 +9,7 @@
       bindinput="inputKeyword"
       bindconfirm="search"
     />
-    <icon class="icon" type="search" size="1rem" bindtap="search"></icon>
+    <icon class="icon" type="search" size="1rem" bindtap="handeSearch"></icon>
   </view>
 
   <t-divider />

@@ -2,6 +2,7 @@ import { getMemberList } from '../../../services/member'
 
 Page({
   data: {
+    type: '',
     keyword: '',
     reload: true,
     members: {
@@ -10,30 +11,35 @@ Page({
       isEnd: false,
     },
   },
-  onLoad(query : { keyword?: string }) {
-    this.setData({ keyword: query.keyword || '' })
+  onLoad(query : { keyword?: string, type?: string }) {
+    this.setData({
+      keyword: query.keyword || '',
+      type: query.type || '',
+    })
   },
   onShow() {
-    if (this.data.reload) {
-      this.loadMembers(this.data.keyword, this.data.members.lastId)
-    }
+    this.data.reload && this.loadMembers(this.data.members.lastId)
   },
   onPullDownRefresh() {
-    this.loadMembers(this.data.keyword)
+    this.loadMembers()
   },
   onReachBottom: function() {
-    this.data.members.isEnd || this.loadMembers(this.data.keyword, this.data.members.lastId)
+    this.data.members.isEnd || this.loadMembers(this.data.members.lastId)
   },
   inputKeyword(e: WechatMiniprogram.Input) {
     this.setData({ keyword: e.detail.value || '' })
   },
   search(e: WechatMiniprogram.InputConfirm) {
     this.setData({ keyword: e.detail.value || '' })
-    this.loadMembers(this.data.keyword)
+    this.loadMembers()
   },
-  loadMembers(keyword: string, lastId: number = 0) {
+  handeSearch() {
+    this.loadMembers()
+  },
+  loadMembers(lastId: number = 0) {
+    console.log(this.data.keyword)
     wx.showLoading({ title: '' })
-    getMemberList(keyword, lastId)
+    getMemberList(this.data.type, this.data.keyword, lastId)
       .then(res => {
         const list = lastId > 0 ? this.data.members.list : []
         const members = {
