@@ -131,7 +131,7 @@ Page({
   },
   _gotoMemberListPage() {
     const pages = getCurrentPages()
-    const listPage = 'pages/index/index'
+    const listPage = 'pages/member/list/list'
 
     if (pages.length >= 2 && pages[pages.length - 2].route === listPage) {
       wx.navigateBack()

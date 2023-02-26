@@ -1,4 +1,4 @@
-import { getMemberList } from '../../services/member'
+import { getMemberList } from '../../../services/member'
 
 Page({
   data: {
