@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "车保姆",
+  "navigationBarTitleText": "会员列表",
   "onReachBottomDistance": 80,
   "usingComponents": {
     "mp-form": "weui-miniprogram/form/form",

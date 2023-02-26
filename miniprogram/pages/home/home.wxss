@@ -1,0 +1,73 @@
+.statistics {
+  background-color: #409EFF;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1em 0 3em;
+}
+.statistics .item {
+  width: 30%;
+  color: #E5EAF3;
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 14px;
+  padding: .8em 0;
+}
+.statistics .item.hover {
+  background-color: #66b1ff;
+}
+.statistics .label {
+  line-height: 1;
+  margin-bottom: .3em;
+}
+.statistics .data {
+  color: #FEFEFE;
+  font-size: 1.8em;
+  font-weight: bold;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  width: 100%;
+  overflow: hidden;
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  padding: .5em 0;
+  border-radius: .3em;
+  background-color: #fff;
+  box-shadow: 0 1px 3px 1px rgba(0,0,0,.3);
+  box-sizing: border-box;
+}
+
+.operates {
+  justify-content: space-evenly;
+  margin-top: -2.5em;
+}
+.operates .item {
+  text-align: center;
+  padding: .3em;
+}
+.operates .label {
+  display: block;
+  color: #4C4D4F;
+  font-size: 14px;
+}
+
+.imprefect {
+  padding: 1em;
+  margin-top: 1em;
+  line-height: 1;
+}
+.imprefect .label {
+  color: #4C4D4F;
+  flex: 1;
+}
+.imprefect .data {
+  color: #3375b9;
+}

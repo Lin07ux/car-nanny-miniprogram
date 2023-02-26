@@ -1,0 +1,22 @@
+<view class="statistics">
+  <navigator class="item" wx:for="{{items}}" wx:key="name" url="/pages/member/list/list?type={{item.name}}" hover-class="hover">
+    <view class="data">{{statistics[item.name]}}</view>
+    <view class="label">{{item.label}}</view>
+  </navigator>
+</view>
+
+<view class="card operates">
+  <navigator class="item" url="/pages/member/list/list" hover-class="none">
+    <mp-icon class="icon" icon="group-detail" color="#3375b9" size="{{40}}"></mp-icon>
+    <text class="label">查询会员</text>
+  </navigator>
+  <navigator class="item" url="/pages/member/form/form" hover-class="none">
+    <mp-icon class="icon" icon="add-friends" color="#3375b9" size="{{40}}"></mp-icon>
+    <text class="label">添加会员</text>
+  </navigator>
+</view>
+
+<navigator class="card imprefect" url="/pages/member/list/list?type=imprefect">
+  <text class="label">待完善客户</text>
+  <text class="data">{{statistics.imprefect}}</text>
+</navigator>

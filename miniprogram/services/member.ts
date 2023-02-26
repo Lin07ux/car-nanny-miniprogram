@@ -1,5 +1,5 @@
 import { get, post, put, del } from '../utils/http'
-import { MEMBER_LIST, MEMBER_CREATE, MEMBER_DETAIL, MEMBER_ACTIONS, MEMBER_UPDATE_LABELS, MEMBER_RECHARGE , MEMBER_CONSUME, MEMBER_UPDATE, MEMBER_DELETE } from '../constants/apis'
+import { MEMBER_LIST, MEMBER_CREATE, MEMBER_DETAIL, MEMBER_ACTIONS, MEMBER_UPDATE_LABELS, MEMBER_RECHARGE , MEMBER_CONSUME, MEMBER_UPDATE, MEMBER_DELETE, MEMBER_STATISTICS } from '../constants/apis'
 
 // @ts-ignore
 const replaceId = (uri: string, id: number): string => uri.replace('_id_', id)
@@ -22,3 +22,5 @@ export const updateMemberLabels = (id: number, labelIds: number[]): Promise<any>
 export const memberRecharge = (id: number, data: {amount: number, counts: number, desc: string}): Promise<{ rechargeMoney: number, canWashCount: number }> => post(replaceId(MEMBER_RECHARGE, id), data)
 
 export const memberConsume = (id: number): Promise<{ canWashCount: number }> => post(replaceId(MEMBER_CONSUME, id))
+
+export const getMemberStatistics = (): Promise<{ total: number, monthNewly: number, birthday: number, active: number, churn: number, unRecharged: number, imprefect: number }> => get(MEMBER_STATISTICS)

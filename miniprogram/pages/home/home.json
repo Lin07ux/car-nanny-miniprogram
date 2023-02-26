@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "车保姆",
+  "usingComponents": {
+    "mp-icon": "weui-miniprogram/icon/icon"
+  }
+}
