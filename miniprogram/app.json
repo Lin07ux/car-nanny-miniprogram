@@ -15,5 +15,6 @@
   "useExtendedLib": {
     "weui": true
   },
+  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json"
 }

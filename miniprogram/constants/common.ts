@@ -8,8 +8,8 @@ export const isProduction = envVersion === 'release'; // 正式版
 
 // API 接口域名
 const DOMAINS = {
-  'trial': 'https://car-nanny.lin07ux.cn',
-  'release': '',
+  'trial': 'https://www.zmfly.top',
+  'release': 'https://www.zmfly.top',
   'develop': 'http://car-nanny.lin07ux.dev',
 }
 export const REQUEST_DOMAIN = `${DOMAINS[envVersion]}/car/`
