@@ -25,8 +25,8 @@
           <input type="text" class="weui-input" value="{{form.carLicenseNo}}" bindinput="formInput" data-field="carLicenseNo" focus maxlength="8" placeholder="请输入车牌号码"/>
         </mp-cell>
       </label>
-      <label class="justify required">
-        <mp-cell prop="label" title="车主标签">
+      <label class="justify">
+        <mp-cell title="车主标签">
           <mp-icon slot="footer" class="labels-arrow" icon="arrow" size="{{12}}" color="#A3A6AD" bindtap="handleLabelShow"></mp-icon>
           <view class="labels" bindtap="handleLabelShow">
             <t-tag class="item" wx:for="{{labels}}" wx:key="id" size="large" variant="outline">{{item.name}}</t-tag>

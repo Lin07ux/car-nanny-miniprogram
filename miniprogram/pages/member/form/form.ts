@@ -58,9 +58,6 @@ Page({
           }
         },
       }, {
-        name: 'labelIds',
-        rules: { required: true, minlength: 1, message: '请选择车主标签' }
-      }, {
         name: 'car',
         rules: { required: true, message: '请设置车型图片' }
       }, {
