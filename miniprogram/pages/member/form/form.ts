@@ -33,18 +33,6 @@ Page({
     },
     rules: [
       {
-        name: 'name',
-        rules: { required: true, message: '请输入会员名称' },
-      }, {
-        name: 'birthday',
-        rules: { required: true, message: '请选择会员生日' },
-      }, {
-        name: 'tel',
-        rules: [
-          { required: true, message: '请输入会员手机号码' },
-          { mobile: true, message: '请输入正确的大陆手机号' },
-        ],
-      }, {
         name: 'carLicenseNo',
         rules: {
           validator: function(_rule: any, value: string, _param: any, _modeels: any): string {
@@ -58,11 +46,11 @@ Page({
           }
         },
       }, {
-        name: 'car',
-        rules: { required: true, message: '请设置车型图片' }
-      }, {
-        name: 'vin',
-        rules: { required: true, message: '请设置车架号图片' }
+        name: 'tel',
+        rules: [
+          { required: true, message: '请输入会员手机号码' },
+          { mobile: true, message: '请输入正确的大陆手机号' },
+        ],
       },
     ],
   },
