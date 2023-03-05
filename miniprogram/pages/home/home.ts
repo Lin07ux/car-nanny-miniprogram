@@ -2,7 +2,6 @@ import { getMemberStatistics } from '../../services/member'
 
 Page({
   data: {
-    reload: true,
     items: [
       { label: '全部会员', name: 'total' },
       { label: '本月新增', name: 'monthNewly' },
@@ -22,7 +21,7 @@ Page({
     },
   },
   onShow() {
-    this.data.reload && this._loadStaistics()
+    this._loadStaistics()
   },
   onPullDownRefresh() {
     this._loadStaistics()
@@ -30,12 +29,11 @@ Page({
   _loadStaistics() {
     wx.showLoading({ title: '' })
     getMemberStatistics().then(res => {
-      this.setData({ reload: false, statistics: res })
+      this.setData({ statistics: res })
       wx.hideLoading()
     }).catch((err: IHttpError) => {
       wx.hideLoading()
       wx.showToast({ title: err.message, icon: 'none' })
-      this.setData({ reload: true })
     })
   },
 })
