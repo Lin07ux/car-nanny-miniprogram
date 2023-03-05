@@ -36,11 +36,13 @@ Page({
         name: 'carLicenseNo',
         rules: {
           validator: function(_rule: any, value: string, _param: any, _modeels: any): string {
-            if (!value || value.length < 7) {
-              return '请输入完整的车牌号码'
-            }
-            if (!carLicenseNoPattern.test(value)) {
-              return '请输入有效的车牌号码'
+            if (value) {
+              if (value.length < 7) {
+                return '请输入完整的车牌号码'
+              }
+              if (!carLicenseNoPattern.test(value)) {
+                return '请输入有效的车牌号码'
+              }
             }
             return ''
           }
@@ -51,6 +53,9 @@ Page({
           { required: true, message: '请输入会员手机号码' },
           { mobile: true, message: '请输入正确的大陆手机号' },
         ],
+      }, {
+        name: 'car',
+        rules: { required: true, message: '请设置车型图片' }
       },
     ],
   },

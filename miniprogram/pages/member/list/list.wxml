@@ -20,13 +20,15 @@
 
       <view class="content">
         <view class="header">
-          <text class="car-no">{{item.carLicenseNo}}</text>
+          <text wx:if="{{item.carLicenseNo}}" class="car-no">{{item.carLicenseNo}}</text>
+          <text wx:else="" class="car-no empty">(待完善)</text>
+          
           <text wx:if="{{item.name}}" class="name">({{item.name}})</text>
           <t-tag wx:if="{{item.isVip}}" class="vip" icon="discount-filled" theme="primary" size="small" variant="light" shape="round">VIP</t-tag>
         </view>
         <view class="text">
           <t-icon name="call" size="21" />
-          <text>{{item.tel}}</text>
+          <text>{{item.tel || '无手机号'}}</text>
         </view>
         <view class="text">
           <t-icon name="clear" size="21" />

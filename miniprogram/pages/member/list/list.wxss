@@ -64,6 +64,9 @@
   margin: 0 5px;
   color: #414243;
 }
+.members .item .car-no.empty {
+  color: #b25252;
+}
 .members .item .text {
   line-height: 1;
   margin-top: .3em;

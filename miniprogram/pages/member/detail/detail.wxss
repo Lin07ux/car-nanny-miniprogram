@@ -39,6 +39,9 @@
 .header .car-no {
   font-size: 1.1em;
 }
+.header .car-no.empty {
+  color: #b25252;
+}
 .header .call {
   margin-top: .5em;
   background-color: #409EFF;

@@ -8,7 +8,10 @@
       <text wx:else class="empty">无名称</text>
       <t-icon class="more" name="ellipsis" size="18" bind:click="handleMoreActions"></t-icon>
     </view>
-    <view class="car-no">{{detail.carLicenseNo}}</view>
+
+    <view wx:if="{{detail.carLicenseNo}}" class="car-no">{{detail.carLicenseNo}}</view>
+    <view wx:else class="car-no empty">(待完善)</view>
+
     <button class="call" size="mini" type="primary" bindtap="callTelphone">
       <t-icon name="call" size="20" />
       <text>{{detail.tel}}</text>
