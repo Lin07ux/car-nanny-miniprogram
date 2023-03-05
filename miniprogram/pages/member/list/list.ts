@@ -37,7 +37,6 @@ Page({
     this.loadMembers()
   },
   loadMembers(lastId: number = 0) {
-    console.log(this.data.keyword)
     wx.showLoading({ title: '' })
     getMemberList(this.data.type, this.data.keyword, lastId)
       .then(res => {
@@ -54,7 +53,7 @@ Page({
         wx.hideLoading()
         wx.showToast({ title: err.message, icon: "error" })
         this.setData({ reload: true })
-      })
+      }).finally(() => wx.stopPullDownRefresh())
   },
   gotoMemberForm() {
     wx.navigateTo({

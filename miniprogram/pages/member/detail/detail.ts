@@ -60,7 +60,10 @@ Page({
       wx.hideLoading()
       wx.showToast({ title: err.message, icon: 'error' })
       setTimeout(() => wx.navigateBack(), 600)
-    }).finally(() => this.setData({ _loading: false }))
+    }).finally(() => {
+      this.setData({ _loading: false })
+      wx.stopPullDownRefresh()
+    })
   },
   _loadActions(lastId: number = 0) {
     wx.showLoading({ title: '' })

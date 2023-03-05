@@ -34,6 +34,6 @@ Page({
     }).catch((err: IHttpError) => {
       wx.hideLoading()
       wx.showToast({ title: err.message, icon: 'none' })
-    })
+    }).finally(() => wx.stopPullDownRefresh())
   },
 })
