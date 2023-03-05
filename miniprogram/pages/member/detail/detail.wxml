@@ -1,8 +1,11 @@
 <view class="header wrapper">
-  <image class="cover" src="{{detail.photos.car}}" mode="aspectFill" bindtap="previewPhotos"/>
+  <image wx-if="{{detail.photos.car}}" class="cover" src="{{detail.photos.car}}" mode="aspectFill" bindtap="previewPhotos"/>
+  <view wx:else class="cover empty">无图片</view>
+  
   <view class="content" wx:if="{{detail.id > 0}}">
     <view class="name">
-      <text>{{detail.name}}</text>
+      <text wx:if="{{detail.name}}">{{detail.name}}</text>
+      <text wx:else class="empty">无名称</text>
       <t-icon class="more" name="ellipsis" size="18" bind:click="handleMoreActions"></t-icon>
     </view>
     <view class="car-no">{{detail.carLicenseNo}}</view>

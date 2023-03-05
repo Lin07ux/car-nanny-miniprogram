@@ -16,6 +16,14 @@
   margin-right: 10px;
   height: 120px;
 }
+.header .cover.empty {
+  display: flex;
+  color: #A3A6AD;
+  background-color: #E5EAF3;
+  font-size: 12px;
+  justify-content: center;
+  align-items: center;
+}
 .header .content {
   flex: 1;
   text-align: center;
@@ -24,6 +32,9 @@
   position: relative;
   font-size: 1.2em;
   margin-bottom: .4em;
+}
+.header .name .empty {
+  color: #8D9095;
 }
 .header .car-no {
   font-size: 1.1em;

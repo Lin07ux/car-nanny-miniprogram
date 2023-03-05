@@ -41,6 +41,14 @@
   height: 96px;
   margin-right: 1em;
 }
+.members .item .cover.empty {
+  display: flex;
+  color: #A3A6AD;
+  background-color: #E5EAF3;
+  font-size: 12px;
+  justify-content: center;
+  align-items: center;
+}
 .members .item .content {
   flex: 1;
 }

@@ -15,11 +15,13 @@
   <t-divider />
   <view class="members">
     <navigator class="item" wx:for="{{members.list}}" wx:key="id" url="/pages/member/detail/detail?id={{item.id}}">
-      <image class="cover" src="{{item.cover}}" mode="aspectFill"/>
+      <image wx:if="{{item.cover}}" class="cover" src="{{item.cover}}" mode="aspectFill"/>
+      <view wx:else class="cover empty">无图片</view>
+
       <view class="content">
         <view class="header">
-          <text class="name">{{item.name}}</text>
-          <text class="car-no">({{item.carLicenseNo}})</text>
+          <text class="car-no">{{item.carLicenseNo}}</text>
+          <text wx:if="{{item.name}}" class="name">({{item.name}})</text>
           <t-tag wx:if="{{item.isVip}}" class="vip" icon="discount-filled" theme="primary" size="small" variant="light" shape="round">VIP</t-tag>
         </view>
         <view class="text">
