@@ -1,0 +1,25 @@
+<t-popup visible="{{visible}}" placement="bottom">
+  <form bindsubmit="handleRechargeConfirm">
+    <view class="recharge">
+      <view class="header">
+        <view class="btn btn--cancel" aria-role="button" bindtap="handleRechargeCancel">取消</view>
+        <view class="title">洗车充值</view>
+        <button class="btn btn--confirm {{!amount || !counts ? 'disabled' : ''}}" form-type="submit">充值</button>
+      </view>
+      <view class="form">
+        <view class="page-section">
+          <view class="weui-cells__title">充值金额</view>
+          <input class="weui-input" type="digit" value="{{amount}}" bindinput="handleInput" data-field="amount" placeholder-class="placeholder" placeholder="请输出充值金额（单位：元）" />
+        </view>
+        <view class="page-section">
+          <view class="weui-cells__title">充值次数</view>
+          <input class="weui-input" type="number" value="{{counts}}" bindinput="handleInput" data-field="counts" placeholder-class="placeholder" placeholder="请输入充值的洗车次数" />
+        </view>
+        <view class="page-section">
+          <view class="weui-cells__title">充值说明</view>
+          <textarea class="weui-input desc" name="desc" maxlength="200" value="{{desc}}" placeholder-class="placeholder" placeholder="请填写充值说明（可空）" />
+        </view>
+      </view>
+    </view>
+  </form>
+</t-popup>

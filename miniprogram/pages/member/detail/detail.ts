@@ -1,17 +1,12 @@
-import { getMemberDetail, getMemberActions, updateMemberLabels, memberRecharge, memberConsume, deleteMember } from '../../../services/member'
+import { getMemberDetail, getMemberActions, updateMemberLabels, memberConsume, deleteMember } from '../../../services/member'
 
 Page({
   data: {
     _id: 0,
     _loading: false,
     visible: false,
+    showRecharge: false,
     selectedIds: <number[]>[],
-    recharge: {
-      show: false,
-      amount: '',
-      counts: '',
-      desc: '',
-    },
     detail: {
       id: 0,
       tel: '',
@@ -143,50 +138,19 @@ Page({
     }
   },
   handleRecharge() {
-    this.setData({ 'recharge.show': true })
+    this.setData({ showRecharge: true })
   },
   handleRechargeCancel() {
-    this.setData({ 'recharge.show': false })
+    this.setData({ showRecharge: false })
   },
-  handleRechargeConfirm(e: WechatMiniprogram.FormSubmit) {
-    const desc = e.detail.value.desc
-    const amount = +this.data.recharge.amount
-    const counts = +this.data.recharge.counts
-    if (amount <= 0 || counts <= 0) {
-      wx.showToast({ title: '请输入有效的充值金额和充值次数', icon: 'none' })
-      return
-    }
-
-    wx.showModal({
-      title: '充值确认',
-      content: `确定为该用户充值【${amount}元/${counts}次】洗车次数吗？`,
-      confirmText: '充值',
-      confirmColor: '#67C23A',
-      success: (res: WechatMiniprogram.ShowModalSuccessCallbackResult) => {
-        if (res.confirm) {
-          this._doMemberRecharge(amount, counts, desc)
-        }
-      }
-    })    
-  },
-  _doMemberRecharge(amount: number, counts: number, desc: string) {
-    wx.showLoading({ title: '充值中' })
-    memberRecharge(this.data.detail.id, {amount, counts, desc}).then(res => {
-      this.setData({
-        'recharge': { show: false, amount: '', counts: '', desc: '' },
-        'detail.canWashCount': res.canWashCount || 0,
-        'detail.rechargeMoney' : res.rechargeMoney || 0,
-      })
-      this._loadActions()
-      wx.hideLoading()
-      wx.showToast({ title: '充值成功', icon: 'success' })
-    }).catch((err: IHttpError) => {
-      wx.hideLoading()
-      wx.showToast({ title: err.message })
+  handleRechargeSuccess(e: WechatMiniprogram.CustomEvent) {
+    const { result } = e.detail
+    this.setData({
+      showRecharge: false,
+      'detail.canWashCount': result.canWashCount || 0,
+      'detail.rechargeMoney' : result.rechargeMoney || 0,
     })
-  },
-  handleInput(e: WechatMiniprogram.Input) {
-    this.setData({ [e.currentTarget.dataset.field]: e.detail.value })
+    this._loadActions()
   },
   handleConsume() {
     if (this.data.detail.canWashCount < 1) {

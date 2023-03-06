@@ -5,6 +5,7 @@
     "t-popup": "tdesign-miniprogram/popup/popup",
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-tag": "tdesign-miniprogram/tag/tag",
-    "c-labels": "/components/labels/labels"
+    "c-labels": "/components/labels/labels",
+    "c-recharge": "/components/recharge/recharge"
   }
 }

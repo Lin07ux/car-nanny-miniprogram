@@ -1,0 +1,55 @@
+.recharge {
+  width: 100vw;
+  background: #fff;
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+}
+.header {
+  display: flex;
+  align-items: center;
+  height: 116rpx;
+}
+.title {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: 36rpx;
+}
+.btn {
+  font-size: 32rpx;
+  padding: 32rpx;
+}
+.btn--confirm {
+  color: #0052d9;
+  background-color: transparent;
+  line-height: 1;
+}
+.btn--confirm::after {
+  border: none;
+}
+.btn--cancel, .disabled {
+  color: rgba(0, 0, 0, .6);
+}
+.form {
+  padding: 1em 1em;
+}
+.weui-cells__title {
+  margin-top: 0;
+  color: #6C6E72;
+}
+.placeholder {
+  color: #A3A6AD;
+}
+.weui-input {
+  border: 1rpx solid #CFD3DC;
+  border-radius: 5px;
+  line-height: 1.6;
+  height: auto;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  margin-bottom: 1em;
+}
+.desc {
+  height: 5em;
+  width: 100%;
+}
