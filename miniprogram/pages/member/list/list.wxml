@@ -1,43 +1,49 @@
-<view>
-  <view class="search-bar">
-    <input class="weui-input"
-      value="{{keyword}}"
-      focus="true"
-      type="text"
-      confirm-type="search"
-      placeholder="输入手机号或车牌号以搜索" 
-      bindinput="inputKeyword"
-      bindconfirm="search"
-    />
-    <icon class="icon" type="search" size="1rem" bindtap="handeSearch"></icon>
-  </view>
 
-  <t-divider />
-  <view class="members">
-    <navigator class="item" wx:for="{{members.list}}" wx:key="id" url="/pages/member/detail/detail?id={{item.id}}">
-      <image wx:if="{{item.cover}}" class="cover" src="{{item.cover}}" mode="aspectFill"/>
-      <view wx:else class="cover empty">无图片</view>
-
-      <view class="content">
-        <view class="header">
-          <text wx:if="{{item.carLicenseNo}}" class="car-no">{{item.carLicenseNo}}</text>
-          <text wx:else="" class="car-no empty">(待完善)</text>
-          
-          <text wx:if="{{item.name}}" class="name">({{item.name}})</text>
-          <t-tag wx:if="{{item.isVip}}" class="vip" icon="discount-filled" theme="primary" size="small" variant="light" shape="round">VIP</t-tag>
-        </view>
-        <view class="text">
-          <t-icon name="call" size="21" />
-          <text>{{item.tel || '无手机号'}}</text>
-        </view>
-        <view class="text">
-          <t-icon name="clear" size="21" />
-          <text>{{item.canWashCount}}</text>
-          <text class="last-time" wx:if="{{item.lastConsumerTime}}">({{item.lastConsumerTime}})</text>
-        </view>
-      </view>
-    </navigator>
-  </view>
-
-  <t-fab class="add-button" icon="add" bind:click="gotoMemberForm" aria-label="新增用户"></t-fab>
+<view class="search-bar">
+  <input class="weui-input"
+    value="{{keyword}}"
+    focus="true"
+    type="text"
+    confirm-type="search"
+    placeholder="输入手机号或车牌号以搜索" 
+    bindinput="inputKeyword"
+    bindconfirm="search"
+  />
+  <icon class="icon" type="search" size="1rem" bindtap="handeSearch"></icon>
 </view>
+
+<t-divider />
+<view class="members">
+  <navigator class="item" wx:for="{{members.list}}" wx:key="id" url="/pages/member/detail/detail?id={{item.id}}">
+    <image wx:if="{{item.cover}}" class="cover" src="{{item.cover}}" mode="aspectFill"/>
+    <view wx:else class="cover empty">无图片</view>
+
+    <view class="content">
+      <view class="header">
+        <text wx:if="{{item.carLicenseNo}}" class="car-no">{{item.carLicenseNo}}</text>
+        <text wx:else="" class="car-no empty">(待完善)</text>
+        
+        <text wx:if="{{item.name}}" class="name">({{item.name}})</text>
+        <t-tag wx:if="{{item.isVip}}" class="vip" icon="discount-filled" theme="primary" size="small" variant="light" shape="round">VIP</t-tag>
+      </view>
+      <view class="detail">
+        <view class="detail__contet">
+          <view class="text">
+            <t-icon name="call" size="21" />
+            <text>{{item.tel || '无手机号'}}</text>
+          </view>
+          <view class="text">
+            <t-icon name="clear" size="21" />
+            <text>{{item.canWashCount}}</text>
+            <text class="last-time" wx:if="{{item.lastConsumerTime}}">({{item.lastConsumerTime}})</text>
+          </view>
+        </view>
+        <button class="recharge" type="primary" size="mini" catchtap="handleRecharge" data-index="{{index}}">充值</button>
+      </view>
+    </view>
+  </navigator>
+</view>
+
+<t-fab class="add-button" icon="add" bind:click="gotoMemberForm" aria-label="新增用户"></t-fab>
+
+<c-recharge visible="{{recharge.index >= 0}}" member-id="{{recharge.id}}" member-name="{{recharge.name}}" bindsuccess="handleRechargeSuccess" bindcancel="handleRechargeCancel"></c-recharge>

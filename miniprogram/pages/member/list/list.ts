@@ -1,14 +1,30 @@
 import { getMemberList } from '../../../services/member'
 
+type member = {
+  id: number,
+  name: string,
+  tel: string,
+  isVip: boolean,
+  carLicenseNo: string,
+  cover: string,
+  canWashCount: number,
+  lastConsumerTime: string,
+}
+
 Page({
   data: {
     type: '',
     keyword: '',
     reload: true,
     members: {
-      list: <object[]>[],
+      list: <member[]>[],
       lastId: 0,
       isEnd: false,
+    },
+    recharge: {
+      name: '',
+      index: -1,
+      id: 0,
     },
   },
   onLoad(query : { keyword?: string, type?: string }) {
@@ -66,6 +82,29 @@ Page({
           })
         },
       },
+    })
+  },
+  handleRecharge(e: WechatMiniprogram.CustomEvent) {
+    const { index } = e.currentTarget.dataset
+    const member = this.data.members.list[index]
+    this.setData({
+      recharge: { index, id: member.id, name: member.carLicenseNo || member.tel || member.name },
+    })
+  },
+  handleRechargeCancel() {
+    this.setData({ 'recharge.index': -1 })
+  },
+  handleRechargeSuccess(e: WechatMiniprogram.CustomEvent) {
+    const { result } = e.detail
+    const index = this.data.recharge.index
+    const member = this.data.members.list[index]
+
+    member.canWashCount = result.canWashCount || 0
+    member.isVip = true
+
+    this.setData({
+      'recharge.index': -1,
+      [`members.list[${index}]`]: member,
     })
   },
 })

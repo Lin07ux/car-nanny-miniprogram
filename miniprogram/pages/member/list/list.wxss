@@ -82,3 +82,14 @@
 .members .item .last-time {
   margin-left: 5px;
 }
+.detail {
+  display: flex;
+  align-items: center;
+}
+.detail__contet {
+  flex: 1;
+}
+.recharge {
+  height: 2.2em;
+  padding: 0 1em;
+}

@@ -3,7 +3,7 @@
     <view class="recharge">
       <view class="header">
         <view class="btn btn--cancel" aria-role="button" bindtap="handleRechargeCancel">取消</view>
-        <view class="title">洗车充值</view>
+        <view class="title">{{memberName || '洗车充值'}}</view>
         <button class="btn btn--confirm {{!amount || !counts ? 'disabled' : ''}}" form-type="submit">充值</button>
       </view>
       <view class="form">

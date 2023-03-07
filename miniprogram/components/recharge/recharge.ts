@@ -10,6 +10,10 @@ Component({
       type: Number,
       value: 0,
     },
+    memberName: {
+      type: String,
+      value: '',
+    },
   },
   data: {
     amount: '',

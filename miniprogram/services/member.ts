@@ -4,7 +4,20 @@ import { MEMBER_LIST, MEMBER_CREATE, MEMBER_DETAIL, MEMBER_ACTIONS, MEMBER_UPDAT
 // @ts-ignore
 const replaceId = (uri: string, id: number): string => uri.replace('_id_', id)
 
-type MemberListResult = { list: object[], lastId: number, isEnd: boolean }
+type MemberListResult = {
+  list: {
+    id: number,
+    name: string,
+    tel: string,
+    isVip: boolean,
+    carLicenseNo: string,
+    cover: string,
+    canWashCount: number,
+    lastConsumerTime: string,
+  },
+  lastId: number,
+  isEnd: boolean,
+}
 export const getMemberList = (type: string, keyword: string, lastId: number): Promise<MemberListResult> => get(MEMBER_LIST, { type, keyword, lastId })
 
 export const createMember = (data: object): Promise<any> => post(MEMBER_CREATE, data)

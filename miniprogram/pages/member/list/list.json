@@ -8,6 +8,7 @@
     "t-divider": "tdesign-miniprogram/divider/divider",
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-tag": "tdesign-miniprogram/tag/tag",
-    "t-fab": "tdesign-miniprogram/fab/fab"
+    "t-fab": "tdesign-miniprogram/fab/fab",
+    "c-recharge": "/components/recharge/recharge"
   }
 }
