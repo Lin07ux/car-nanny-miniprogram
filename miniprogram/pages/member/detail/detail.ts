@@ -1,10 +1,11 @@
-import { getMemberDetail, getMemberActions, updateMemberLabels, memberConsume, deleteMember } from '../../../services/member'
+import { getMemberDetail, getMemberActions, updateMemberLabels, deleteMember } from '../../../services/member'
 
 Page({
   data: {
     _id: 0,
     _loading: false,
     visible: false,
+    showConsume: false,
     showRecharge: false,
     selectedIds: <number[]>[],
     detail: {
@@ -158,25 +159,18 @@ Page({
       return
     }
 
-    wx.showModal({
-      title: '消费确认',
-      content: '确认要消费【1 次】该用户的洗车次数吗？',
-      success: (res: WechatMiniprogram.ShowModalSuccessCallbackResult) => {
-        if (res.confirm) {
-          this._doConsume()
-        }
-      }
-    })    
+    this.setData({ showConsume: true })
   },
-  _doConsume() {
-    wx.showLoading({ title: '消费洗车次数' })
-    memberConsume(this.data.detail.id).then(res => {
-      this.setData({ 'detail.canWashCount': res.canWashCount })
-      this._loadActions()
-    }).catch((err: IHttpError) => {
-      wx.hideLoading()
-      wx.showToast({ title: err.message, icon: 'none' })
+  handleConsumeCancel() {
+    this.setData({ showConsume: false })
+  },
+  handleCinsumeSuccess(e: WechatMiniprogram.CustomEvent) {
+    const { canWashCount } = e.detail
+    this.setData({
+      showConsume: false,
+      'detail.canWashCount': canWashCount,
     })
+    this._loadActions()
   },
   handleAddTag() {
     this.setData({ visible: true })

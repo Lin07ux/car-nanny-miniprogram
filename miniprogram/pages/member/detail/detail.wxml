@@ -68,3 +68,5 @@
 <c-labels selected="{{selectedIds}}" visible="{{visible}}" bindcancel="handleLabelCancel" bindconfirm="handleLabelConfirm"/>
 
 <c-recharge visible="{{showRecharge}}" member-id="{{detail.id}}" bindsuccess="handleRechargeSuccess" bindcancel="handleRechargeCancel"></c-recharge>
+
+<c-consume visible="{{showConsume}}" member-id="{{detail.id}}" bindsuccess="handleCinsumeSuccess" bindcancel="handleConsumeCancel"></c-consume>

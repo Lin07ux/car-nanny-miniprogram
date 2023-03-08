@@ -58,8 +58,6 @@
             files="{{images.vin}}"
             bindselect="handleSelect"
             binddelete="handleDelete"
-            bindsuccess="uploadSuccess"
-            bindfail="uploadError"
             data-field="vin"
           ></mp-uploader>
         </mp-cell>

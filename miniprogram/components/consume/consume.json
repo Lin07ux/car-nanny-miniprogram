@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "styleIsolation":"shared",
+  "usingComponents": {
+    "t-popup": "tdesign-miniprogram/popup/popup",
+    "mp-uploader": "weui-miniprogram/uploader/uploader"
+  }
+}

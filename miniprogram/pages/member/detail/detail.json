@@ -6,6 +6,7 @@
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-tag": "tdesign-miniprogram/tag/tag",
     "c-labels": "/components/labels/labels",
+    "c-consume": "/components/consume/consume",
     "c-recharge": "/components/recharge/recharge"
   }
 }

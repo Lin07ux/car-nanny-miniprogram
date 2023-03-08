@@ -1,0 +1,22 @@
+<t-popup visible="{{visible}}" placement="bottom" bind:visible-change="handleVisibleChange">
+  <view class="consume-component">
+    <view class="header">
+      <view class="btn btn--cancel" aria-role="button" bindtap="handleClose">取消</view>
+      <view class="title">洗车消费</view>
+      <button class="btn btn--confirm {{ !file ? 'disabled' : ''}}" bindtap="consume">扣减</button>
+    </view>
+    <view class="body">
+      <mp-uploader 
+        title=""
+        ext-class="uploader"
+        files="{{file ? [{url: file}] : []}}"
+        size-type="{{['original', 'compressed']}}"
+        source-type="{{['album', 'camera']}}"
+        delete="{{true}}"
+        bindselect="handleSelect"
+        binddelete="handleDelete"
+      ></mp-uploader>
+      <view class="tips">请上传洗车消费图片，不得超过 5MB。</view>
+    </view>
+  </view>
+</t-popup>

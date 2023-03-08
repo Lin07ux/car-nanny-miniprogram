@@ -1,0 +1,52 @@
+.consume-component {
+  width: 100vw;
+  background: #fff;
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+}
+.consume-component .header {
+  display: flex;
+  align-items: center;
+  height: 116rpx;
+}
+.consume-component .title {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: 36rpx;
+}
+.consume-component .btn {
+  font-size: 32rpx;
+  padding: 32rpx;
+}
+.consume-component .btn--confirm {
+  color: #0052d9;
+  background-color: transparent;
+  line-height: 1;
+}
+.consume-component .btn--confirm::after {
+  border: none;
+}
+.consume-component .btn--cancel, .consume-component .disabled {
+  color: rgba(0, 0, 0, .6);
+}
+.consume-component .body {
+  padding: 0 1em 1em;
+}
+.consume-component .weui-uploader__hd {
+  display: none;
+}
+.consume-component .weui-uploader__bd {
+  margin: 0 0 .5em;
+}
+.consume-component .weui-uploader__input-box, .consume-component .weui-uploader__file {
+  width: 100%;
+  height: 50vw;
+  float: none;
+  margin: 0;
+}
+.consume-component .tips {
+  font-size: 14px;
+  color: #A3A6AD;
+  text-align: center;
+}
