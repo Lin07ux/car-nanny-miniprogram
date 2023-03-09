@@ -54,7 +54,10 @@
   <block wx:for="{{actions.list}}" wx:key="id">
     <view class="item">
       <view class="detail">
-        <view class="title">{{item.title}}</view>
+        <view class="title">
+          <text>{{item.title}}</text>
+          <mp-icon wx:if="{{item.image}}" class="icon" type="field" icon="album" color="#409EFF" size="{{25}}" bindtap="previewConsumeImage" data-index="{{index}}"></mp-icon>
+        </view>
         <view class="time">{{item.createTime}}</view>
       </view>
       <view class="count primary" wx:if="{{item.count > 0}}">+{{item.count}}</view>

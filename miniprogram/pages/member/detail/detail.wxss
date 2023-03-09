@@ -96,6 +96,10 @@
   color: #1D1D1D;
   margin-bottom: .4em;
 }
+.actions .item .title .icon {
+  display: inline-block;
+  margin-left: .3em;
+}
 .actions .item .time {
   color: #6C6E72;
   font-size: 14px;

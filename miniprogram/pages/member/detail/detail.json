@@ -5,6 +5,7 @@
     "t-popup": "tdesign-miniprogram/popup/popup",
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-tag": "tdesign-miniprogram/tag/tag",
+    "mp-icon": "weui-miniprogram/icon/icon",
     "c-labels": "/components/labels/labels",
     "c-consume": "/components/consume/consume",
     "c-recharge": "/components/recharge/recharge"

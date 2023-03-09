@@ -23,7 +23,7 @@ Page({
     actions: {
       lastId: 0,
       isEnd: false,
-      list: <object[]>[],
+      list: <{id: number, image: string}[]>[],
     },
   },
   onLoad(query: { id?: number }) {
@@ -190,5 +190,12 @@ Page({
       wx.hideLoading()
       wx.showToast({ title: err.message, icon: 'none' })
     })
+  },
+  previewConsumeImage(e: WechatMiniprogram.TouchEvent) {
+    const { index } = e.currentTarget.dataset
+    const action = this.data.actions.list[index] || null
+    if (action && action.image) {
+      wx.previewImage({ urls: [action.image] })
+    }
   },
 })
