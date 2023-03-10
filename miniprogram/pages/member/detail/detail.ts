@@ -17,7 +17,7 @@ Page({
       canWashCount: 0,
       rechargeMoney: 0,
       profile: { birthday: '' },
-      photos: <{car: string, vin: string}>{},
+      photos: <{car?: string, vin?: string}>{},
       labels: <{id: number, name: string}[]>[],
     },
     actions: {
@@ -78,7 +78,8 @@ Page({
     this.setData({ selectedIds: this.data.detail.labels.map((label: { id: number}) => label.id)})
   },
   previewPhotos() {
-    wx.previewImage({ urls: Object.values(this.data.detail.photos) })
+    // @ts-ignore
+    wx.previewImage({ urls: Object.values(this.data.detail.photos).filter((v?: string) => !!v) })
   },
   callTelphone() {
     wx.makePhoneCall({ phoneNumber: this.data.detail.tel })

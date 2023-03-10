@@ -80,20 +80,27 @@ Page({
   _loadMemberDetail() {
     wx.showLoading({ title: '' })
     getMemberDetail(this.data._id).then(res => {
+      const car = []
+      if (res.photos.car) {
+        car.push({ url: res.photos.car, href: res.photos.car, error: false, loading: false })
+      }
+
+      const vin = []
+      if (res.photos.vin) {
+        vin.push({ url: res.photos.vin, href: res.photos.vin, error: false, loading: false })
+      }
+
       this.setData({
         labels: res.labels,
-        images: {
-          car: [{ url: res.photos.car, href: res.photos.car, error: false, loading: false }],
-          vin: [{ url: res.photos.vin, href: res.photos.vin, error: false, loading: false }],
-        },
+        images: { car, vin },
         form: {
           tel: res.tel,
           name: res.name,
           birthday: res.profile.birthday,
           carLicenseNo: res.carLicenseNo,
           labelIds: res.labels.map(label => label.id),
-          car: res.photos.car,
-          vin: res.photos.vin,
+          car: res.photos.car || '',
+          vin: res.photos.vin || '',
         },
       })
       wx.hideLoading()
