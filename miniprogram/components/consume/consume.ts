@@ -40,6 +40,7 @@ Component({
       wx.showLoading({ title: '消费洗车次数' })
       memberConsume(this.data.memberId, this.data.file).then(result => {
         wx.hideLoading()
+        this.setData({ file: '' })
         this.triggerEvent('success', { canWashCount: result.canWashCount })
       }).catch((err: IHttpError) => {
         wx.hideLoading()
