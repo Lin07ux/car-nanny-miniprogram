@@ -1,0 +1,13 @@
+<t-fab icon="photo" bind:click="handleClick" text="扫码接车" />
+<root-portal wx:if="{{showCamera}}">
+  <view class="camera-context">
+    <camera wx:if="{{! showImage}}" mode="normal" resolution="medium" frame-size="medium" device-position="back" flash="auto" class="camera"></camera>
+    <image class="image" wx:if="{{showImage}}" src="{{image}}" mode="aspectFill"/>
+    <view class="operate {{ showImage ? 'hide' : ''}}">
+      <view class="button-wrap" bindtap="takePhoto">
+        <view class="button"></view>
+      </view>
+      <text class="cancel" bindtap="handleCancel">取消</text>
+    </view>
+  </view>
+</root-portal>

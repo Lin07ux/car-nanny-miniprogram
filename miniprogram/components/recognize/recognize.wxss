@@ -1,0 +1,62 @@
+.camera-context {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: #fff;
+}
+.camera {
+  width: 100%;
+  height: 100%;
+}
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.operate {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 30vh;
+  padding: 40rpx 0;
+  background-color: rgba(0, 0, 0, .6);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.operate.hide {
+  display: none;
+}
+.operate.hide {
+  display: none;
+}
+.button-wrap {
+  width: 84rpx;
+  height: 84rpx;
+  border: 6rpx solid #fff;
+  padding: 4rpx;
+  border-radius: 50%;
+}
+.button {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.cancel {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 12px;
+  font-size: 14px;
+  color: #A3A6AD;
+}
