@@ -2,6 +2,7 @@ export const LOGIN = 'login'
 
 // 文件上传
 export const UPLOAD_IMAGE = 'upload/image'
+export const UPLOAD_OSS_IMAGE = 'upload/oss/image'
 
 // 标签
 export const LABEL_LIST = 'labels'

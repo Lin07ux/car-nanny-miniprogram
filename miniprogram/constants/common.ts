@@ -13,3 +13,5 @@ const DOMAINS = {
   'develop': 'http://car-nanny.lin07ux.dev',
 }
 export const REQUEST_DOMAIN = `${DOMAINS[envVersion]}/car/`
+
+export const IMAGE_TYPE_CAR_LICENSE = 'car-license'
