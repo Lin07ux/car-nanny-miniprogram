@@ -20,3 +20,5 @@
   <text class="label">待完善客户</text>
   <text class="data">{{statistics.imprefect}}</text>
 </navigator>
+
+<c-recognize class="recognize" bind:recognized="handleRecognized"></c-recognize>

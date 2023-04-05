@@ -71,3 +71,10 @@
 .imprefect .data {
   color: #3375b9;
 }
+
+.recognize .t-fab {
+  position: fixed;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+}

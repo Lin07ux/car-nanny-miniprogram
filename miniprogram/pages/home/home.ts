@@ -36,4 +36,13 @@ Page({
       wx.showToast({ title: err.message, icon: 'none' })
     }).finally(() => wx.stopPullDownRefresh())
   },
+  handleRecognized(e: WechatMiniprogram.CustomEvent) {
+    const { id, url, plateNumber } = e.detail
+
+    if (id > 0) {
+      wx.navigateTo({ url: `/pages/member/detail/detail?id=${id}`})
+    } else {
+      wx.navigateTo({ url: `/pages/member/form/form?url=${url}&plateNumber=${plateNumber}` })
+    }
+  }
 })
