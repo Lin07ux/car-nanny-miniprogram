@@ -2,7 +2,10 @@ export const LOGIN = 'login'
 
 // 文件上传
 export const UPLOAD_IMAGE = 'upload/image'
-export const UPLOAD_OSS_IMAGE = 'upload/oss/image'
+
+// 阿里云服务
+export const ALIYUN_OSS_IMAGE = 'aliyun/oss/image'
+export const ALIYUN_LICENSE_PLATE = 'aliyun/recognize/license-plate'
 
 // 标签
 export const LABEL_LIST = 'labels'

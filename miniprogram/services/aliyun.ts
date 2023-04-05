@@ -1,5 +1,5 @@
 import { post } from '../utils/http'
-import { ALIYUN_OSS_IMAGE } from '../constants/apis'
+import { ALIYUN_OSS_IMAGE, ALIYUN_LICENSE_PLATE } from '../constants/apis'
 
 type ossImageResult = {
   path: string,
@@ -39,7 +39,10 @@ const ossPostObject = (filePath: string, options: ossImageResult): Promise<strin
         'x-oss-security-token': options.securityToken, // 使用 STS 签名时必传
       },
       success: res => res.statusCode === 204 ? resolve(`${options.host}/${options.path}`) : reject(res),
-      fail: err => reject(err),
+      fail: err => {
+        console.error(err)
+        reject('OSS 文件上传失败')
+      },
     })
   })
 }
@@ -50,4 +53,4 @@ export const uploadOssImage = (type: string, file: string): Promise<string> => {
     .then((res: ossImageResult) => ossPostObject(file, res))
 }
 
-export const recognizePlate = (url: string) => {}
+export const recognizeLicensePlate = (url: string): Promise<{id: number, plateType: string, plateNumber: string}> => post(ALIYUN_LICENSE_PLATE, { url })
