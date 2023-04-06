@@ -3,19 +3,19 @@
 
   <mp-form id="form" rules="{{rules}}" models="{{form}}">
     <mp-cells>
+      <label class="justify required">
+        <mp-cell prop="carLicenseNo" title="车牌号码">
+          <input type="text" class="weui-input" value="{{form.carLicenseNo}}" bindinput="formInput" data-field="carLicenseNo" focus maxlength="8" placeholder="请输入车牌号码"/>
+        </mp-cell>
+      </label>
       <label class="justify">
         <mp-cell title="会员姓名">
           <input type="text" class="weui-input" value="{{form.name}}" bindinput="formInput" data-field="name" maxlength="20" focus placeholder="请输入会员名称"/>
         </mp-cell>
       </label>
-      <label class="justify required">
+      <label class="justify">
         <mp-cell prop="tel" title="手机号码">
           <input type="text" class="weui-input" value="{{form.tel}}" bindinput="formInput" data-field="tel" focus maxlength="13" placeholder="请输入会员手机号码"/>
-        </mp-cell>
-      </label>
-      <label class="justify">
-        <mp-cell prop="carLicenseNo" title="车牌号码">
-          <input type="text" class="weui-input" value="{{form.carLicenseNo}}" bindinput="formInput" data-field="carLicenseNo" focus maxlength="8" placeholder="请输入车牌号码"/>
         </mp-cell>
       </label>
       <label class="justify">

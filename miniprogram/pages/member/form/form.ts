@@ -36,45 +36,39 @@ Page({
         name: 'carLicenseNo',
         rules: {
           validator: function(_rule: any, value: string, _param: any, _modeels: any): string {
-            if (value) {
-              if (value.length < 7) {
-                return '请输入完整的车牌号码'
-              }
-              if (!carLicenseNoPattern.test(value)) {
-                return '请输入有效的车牌号码'
-              }
+            if (! value || value.length < 7) {
+              return '请输入完整的车牌号码'
             }
+
+            if (! carLicenseNoPattern.test(value)) {
+              return '请输入有效的车牌号码'
+            }
+
             return ''
           }
         },
       }, {
         name: 'tel',
-        rules: [
-          { required: true, message: '请输入会员手机号码' },
-          { mobile: true, message: '请输入正确的大陆手机号' },
-        ],
+        rules: { mobile: true, message: '请输入正确的大陆手机号' },
       }, {
         name: 'car',
         rules: { required: true, message: '请设置车型图片' }
       },
     ],
   },
-  onLoad(query : { id?: number, keyword?: string }) {
+  onLoad(query : { id?: number, url?: string, plateNumber?: string }) {
     const id = +(query.id || 0)
     if (id > 0) {
       wx.setNavigationBarTitle({ title: '会员编辑' })
       this.setData({ _id: id })
       this._loadMemberDetail()
       return
-    }
-
-    const keyword = (query.keyword || '').trim()
-    if (keyword) {
-      if (carLicenseNoPattern.test(keyword)) {
-        this.data.form.carLicenseNo = keyword
-      } else if (/^1[3-9]\d{9}$/.test(keyword)) {
-        this.data.form.tel = keyword
-      }
+    } else if (query.plateNumber) {
+      this.setData({
+        'form.car': query.url,
+        'form.carLicenseNo': query.plateNumber,
+        'images.car': [{ url: query.url, href: query.url, error: false, loading: false }]
+      })
     }
   },
   _loadMemberDetail() {
