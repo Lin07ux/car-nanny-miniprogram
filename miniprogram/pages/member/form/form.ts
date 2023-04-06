@@ -1,6 +1,7 @@
 import { formatDate } from '../../../utils/util'
-import { uploadImage } from '../../../services/uploader'
 import { createMember, getMemberDetail, updateMember } from '../../../services/member'
+import { uploadOssImage } from '../../../services/aliyun'
+import { IMAGE_TYPE_CAR_LICENSE, IMAGE_TYPE_CAR_VIN } from '../../../constants/common'
 
 type uploaderFile = {
   url: string,
@@ -47,9 +48,6 @@ Page({
             return ''
           }
         },
-      }, {
-        name: 'tel',
-        rules: { mobile: true, message: '请输入正确的大陆手机号' },
       }, {
         name: 'car',
         rules: { required: true, message: '请设置车型图片' }
@@ -182,23 +180,23 @@ Page({
     image.loading = true
     this.setData({ [`images.${type}`]: [image] })
 
-    return uploadImage(type, image.url)
-      .then((res: { url: string, path: string }) => {
-        image.href = res.url
-        image.loading = false
+    const uploadType = type === 'car' ? IMAGE_TYPE_CAR_LICENSE : IMAGE_TYPE_CAR_VIN
 
-        this.setData({
-          [`images.${type}`]: [image],
-          [`form.${type}`]: res.url,
-        })
+    return uploadOssImage(uploadType, image.url).then(url => {
+      image.href = url
+      image.loading = false
+
+      this.setData({
+        [`images.${type}`]: [image],
+        [`form.${type}`]: url,
       })
-      .catch((err: IHttpError) => {
-        image.loading = false
-        image.error = true
+    }).catch((err: IHttpError) => {
+      image.loading = false
+      image.error = true
 
-        this.setData({ [`images.${type}`]: [image] })
+      this.setData({ [`images.${type}`]: [image] })
 
-        throw err
-      })
+      throw err
+    })
   },
 })
