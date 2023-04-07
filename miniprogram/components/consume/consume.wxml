@@ -3,7 +3,7 @@
     <view class="header">
       <view class="btn btn--cancel" aria-role="button" bindtap="handleClose">取消</view>
       <view class="title">洗车消费</view>
-      <button class="btn btn--confirm {{ !file ? 'disabled' : ''}}" bindtap="consume">扣减</button>
+      <button class="btn btn--confirm {{ !file ? 'disabled' : ''}}" bindtap="consume">{{ isMaintain ? '扣减' : '记录' }}</button>
     </view>
     <view class="body">
       <mp-uploader 

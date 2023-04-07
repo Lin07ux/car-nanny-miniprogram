@@ -1,4 +1,6 @@
 import { memberConsume } from '../../services/member'
+import { uploadOssImage } from '../../services/aliyun'
+import { IMAGE_TYPE_CONSUME, CONSUME_MAINTAIN, CONSUME_RECORD } from '../../constants/common'
 
 Component({
   properties: {
@@ -10,9 +12,25 @@ Component({
       type: Number,
       value: 0,
     },
+    washCount: {
+      type: Number,
+      value: 0,
+    },
   },
   data: {
     file: '',
+    saved: false,
+    isMaintain: false,
+  },
+  observers: {
+    washCount: function(count) {
+      this.setData({ isMaintain: count > 0 })
+    },
+    visible: function (visible) {
+      if (! visible && this.data.saved && this.data.file) {
+        this.handleDelete()
+      }
+    }
   },
   methods: {
     handleVisibleChange(e: WechatMiniprogram.CustomEvent) {
@@ -27,8 +45,8 @@ Component({
       }
 
       wx.showModal({
-        title: '消费确认',
-        content: '确认要消费【1 次】该用户的洗车次数吗？',
+        title: this.data.isMaintain ? '消费确认' : '记录确认',
+        content: this.data.isMaintain ? '确认要消费【1 次】该用户的洗车次数吗？' : '确定要记录该车的洗车记录吗？',
         success: (res: WechatMiniprogram.ShowModalSuccessCallbackResult) => {
           if (res.confirm) {
             this._doConsume()
@@ -37,10 +55,13 @@ Component({
       })  
     },
     _doConsume() {
-      wx.showLoading({ title: '消费洗车次数' })
-      memberConsume(this.data.memberId, this.data.file).then(result => {
+      wx.showLoading({ title: this.data.isMaintain ? '消费洗车次数' : '记录洗车消费' })
+      uploadOssImage(IMAGE_TYPE_CONSUME, this.data.file).then(url => {
+        const type = this.data.isMaintain ? CONSUME_MAINTAIN : CONSUME_RECORD
+        return memberConsume(this.data.memberId, url, type)
+      }).then(result => {
         wx.hideLoading()
-        this.setData({ file: '' })
+        this.setData({ saved: true })
         this.triggerEvent('success', { canWashCount: result.canWashCount })
       }).catch((err: IHttpError) => {
         wx.hideLoading()

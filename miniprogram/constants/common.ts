@@ -16,3 +16,7 @@ export const REQUEST_DOMAIN = `${DOMAINS[envVersion]}/car/`
 
 export const IMAGE_TYPE_CAR_LICENSE = 'car-license' // 车牌
 export const IMAGE_TYPE_CAR_VIN = 'car-vin' // 车架号
+export const IMAGE_TYPE_CONSUME = 'consume' // 消费
+
+export const CONSUME_MAINTAIN = 'maintain' // 洗车消费
+export const CONSUME_RECORD = 'record' // 洗车记录

@@ -1,4 +1,4 @@
-import { get, post, put, del, upload } from '../utils/http'
+import { get, post, put, del } from '../utils/http'
 import { MEMBER_LIST, MEMBER_CREATE, MEMBER_DETAIL, MEMBER_ACTIONS, MEMBER_UPDATE_LABELS, MEMBER_RECHARGE , MEMBER_CONSUME, MEMBER_UPDATE, MEMBER_DELETE, MEMBER_STATISTICS } from '../constants/apis'
 
 // @ts-ignore
@@ -34,6 +34,6 @@ export const updateMemberLabels = (id: number, labelIds: number[]): Promise<any>
 
 export const memberRecharge = (id: number, data: {amount: number, counts: number, desc: string}): Promise<{ rechargeMoney: number, canWashCount: number }> => post(replaceId(MEMBER_RECHARGE, id), data)
 
-export const memberConsume = (id: number, file: string): Promise<{ canWashCount: number }> => upload(replaceId(MEMBER_CONSUME, id), file, 'image')
+export const memberConsume = (id: number, url: string, type: string): Promise<{ canWashCount: number }> => post(replaceId(MEMBER_CONSUME, id), { url, type })
 
 export const getMemberStatistics = (): Promise<{ total: number, monthNewly: number, birthday: number, active: number, churn: number, unRecharged: number, imprefect: number }> => get(MEMBER_STATISTICS)
