@@ -72,4 +72,4 @@
 
 <c-recharge visible="{{showRecharge}}" member-id="{{detail.id}}" bindsuccess="handleRechargeSuccess" bindcancel="handleRechargeCancel"></c-recharge>
 
-<c-consume visible="{{showConsume}}" member-id="{{detail.id}}" bindsuccess="handleCinsumeSuccess" bindcancel="handleConsumeCancel"></c-consume>
+<c-consume visible="{{showConsume}}" member-id="{{detail.id}}" wash-count="{{detail.canWashCount}}" bindsuccess="handleCinsumeSuccess" bindcancel="handleConsumeCancel"></c-consume>

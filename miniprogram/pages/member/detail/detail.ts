@@ -26,9 +26,14 @@ Page({
       list: <{id: number, image: string}[]>[],
     },
   },
-  onLoad(query: { id?: number }) {
+  onLoad(query: { id?: number, from?: string }) {
     this.setData({ _id: query.id || 0 })
-    this._loadDetail()
+    this._loadDetail().then(() => {
+      // 扫码接车进来直接扣费
+      if (this.data.detail.id > 0 && query.from === 'scan') {
+        this.handleConsume()
+      }
+    })
   },
   onPullDownRefresh() {
     this._loadDetail()
@@ -36,19 +41,20 @@ Page({
   onReachBottom: function() {
     this.data.actions.isEnd || this._loadActions(this.data.actions.lastId)
   },
-  _loadDetail() {
+  _loadDetail(): Promise<void> {
     if (this.data._id <= 0) {
       wx.showToast({ title: '会员信息不存在', icon: 'error' })
-      return
+      return Promise.resolve()
     }
 
     if (this.data._loading) {
-      return
+      return Promise.resolve()
     }
 
     wx.showLoading({ title: '' })
     this.setData({ _loading: true })
-    getMemberDetail(this.data._id).then(res => {
+    
+    return getMemberDetail(this.data._id).then(res => {
       this.setData({ detail: res })
       this._loadActions()
       this._setSelectedIds()
@@ -155,11 +161,6 @@ Page({
     this._loadActions()
   },
   handleConsume() {
-    if (this.data.detail.canWashCount < 1) {
-      wx.showToast({ title: '请先充值再消费', icon: 'none' })
-      return
-    }
-
     this.setData({ showConsume: true })
   },
   handleConsumeCancel() {
