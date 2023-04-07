@@ -49,22 +49,40 @@
 <t-divider/>
 
 <view class="actions wrapper">
-  <text class="label">消费记录</text>
-  <block wx:for="{{actions.list}}" wx:key="id">
-    <view class="item">
-      <view class="detail">
-        <view class="title">
-          <text>{{item.title}}</text>
-          <mp-icon wx:if="{{item.image}}" class="icon" type="field" icon="album" color="#409EFF" size="{{25}}" bindtap="previewConsumeImage" data-index="{{index}}"></mp-icon>
+  <t-tabs value="{{actions.tab}}" bind:change="onActionTabChange" bind:click="onActionTabClick" t-class="custom-tabs">
+    <t-tab-panel label="充值消费" value="maintain">
+      <block wx:for="{{actions.maintain.list}}" wx:key="id">
+        <view class="item">
+          <view class="detail">
+            <view class="title">
+              <text>{{item.title}}</text>
+              <mp-icon wx:if="{{item.image}}" class="icon" type="field" icon="album" color="#409EFF" size="{{25}}" bindtap="previewConsumeImage" data-index="{{index}}"></mp-icon>
+            </view>
+            <view class="time">{{item.createTime}}</view>
+          </view>
+          <view class="count recharge" wx:if="{{item.count > 0}}">+{{item.count}}</view>
+          <view class="count deduction" wx:elif="{{item.count < 0}}">{{item.count}}</view>
         </view>
-        <view class="time">{{item.createTime}}</view>
-      </view>
-      <view class="count recharge" wx:if="{{item.count > 0}}">+{{item.count}}</view>
-      <view class="count deduction" wx:elif="{{item.count < 0}}">{{item.count}}</view>
-    </view>
-    <t-divider/>
-  </block>
-  <view class="empty" wx:if="{{!actions.list.length}}">暂无记录</view>
+        <t-divider/>
+      </block>
+      <view class="empty" wx:if="{{!actions.maintain.list.length}}">暂无记录</view>
+    </t-tab-panel>
+    <t-tab-panel label="洗车记录" value="record">
+      <block wx:for="{{actions.record.list}}" wx:key="id">
+        <view class="item">
+          <view class="detail">
+            <view class="title">
+              <text>{{item.title}}</text>
+              <mp-icon wx:if="{{item.image}}" class="icon" type="field" icon="album" color="#409EFF" size="{{25}}" bindtap="previewConsumeImage" data-index="{{index}}"></mp-icon>
+            </view>
+            <view class="time">{{item.createTime}}</view>
+          </view>
+        </view>
+        <t-divider/>
+      </block>
+      <view class="empty" wx:if="{{!actions.record.list.length}}">暂无记录</view>
+    </t-tab-panel>
+  </t-tabs>
 </view>
 
 <c-labels selected="{{selectedIds}}" visible="{{visible}}" bindcancel="handleLabelCancel" bindconfirm="handleLabelConfirm"/>

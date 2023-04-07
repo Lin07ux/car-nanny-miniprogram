@@ -21,17 +21,28 @@ Page({
       labels: <{id: number, name: string}[]>[],
     },
     actions: {
-      lastId: 0,
-      isEnd: false,
-      list: <{id: number, image: string}[]>[],
+      tab: <'maintain'|'record'>'maintain',
+      maintain: {
+        lastId: 0,
+        isEnd: false,
+        list: <{id: number, image: string}[]>[],
+      },
+      record: {
+        lastId: 0,
+        isEnd: false,
+        list: <{id: number, image: string}[]>[],
+      },
     },
   },
   onLoad(query: { id?: number, from?: string }) {
     this.setData({ _id: query.id || 0 })
     this._loadDetail().then(() => {
       // 扫码接车进来直接扣费
-      if (this.data.detail.id > 0 && query.from === 'scan') {
-        this.handleConsume()
+      if (this.data.detail.id > 0) {
+        this._loadActions()
+        if (query.from === 'scan') {
+          this.handleConsume()
+        }
       }
     })
   },
@@ -39,7 +50,9 @@ Page({
     this._loadDetail()
   },
   onReachBottom: function() {
-    this.data.actions.isEnd || this._loadActions(this.data.actions.lastId)
+    const type = this.data.actions.tab
+
+    this.data.actions[type].isEnd || this._loadActions(this.data.actions[type].lastId)
   },
   _loadDetail(): Promise<void> {
     if (this.data._id <= 0) {
@@ -56,7 +69,6 @@ Page({
     
     return getMemberDetail(this.data._id).then(res => {
       this.setData({ detail: res })
-      this._loadActions()
       this._setSelectedIds()
     }).catch((err: IHttpError) => {
       wx.hideLoading()
@@ -68,12 +80,14 @@ Page({
     })
   },
   _loadActions(lastId: number = 0) {
+    const type = this.data.actions.tab
+
     wx.showLoading({ title: '' })
-    getMemberActions(this.data.detail.id, lastId).then(res => {
+    getMemberActions(this.data.detail.id, type, lastId).then(res => {
       if (lastId > 0) {
-        res.list = this.data.actions.list.concat(res.list)
+        res.list = this.data.actions[type].list.concat(res.list)
       }
-      this.setData({ actions: res })
+      this.setData({ [`actions.${type}`]: res })
       wx.hideLoading()
     }).catch((err: IHttpError) => {
       wx.hideLoading()
@@ -195,9 +209,16 @@ Page({
   },
   previewConsumeImage(e: WechatMiniprogram.TouchEvent) {
     const { index } = e.currentTarget.dataset
-    const action = this.data.actions.list[index] || null
+    const action = this.data.actions[this.data.actions.tab].list[index] || null
     if (action && action.image) {
       wx.previewImage({ urls: [action.image] })
     }
+  },
+  onActionTabChange(e: WechatMiniprogram.CustomEvent) {
+    const { value } = e.detail
+
+    console.log(value)
+    this.setData({ 'actions.tab': value })
+    this._loadActions()
   },
 })

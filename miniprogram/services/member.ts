@@ -28,7 +28,7 @@ export const updateMember = (id: number, data: object): Promise<any> => put(repl
 
 export const deleteMember = (id: number): Promise<any> => del(replaceId(MEMBER_DELETE, id))
 
-export const getMemberActions = (id: number, lastId: number): Promise<{ lastId: number, isEnd: boolean, list: Array<{id: number, image: string}> }> => get(replaceId(MEMBER_ACTIONS, id), { lastId })
+export const getMemberActions = (id: number, type: string, lastId: number): Promise<{ lastId: number, isEnd: boolean, list: Array<{id: number, image: string}> }> => get(replaceId(MEMBER_ACTIONS, id), { type, lastId })
 
 export const updateMemberLabels = (id: number, labelIds: number[]): Promise<any> => put(replaceId(MEMBER_UPDATE_LABELS, id), { labelIds })
 

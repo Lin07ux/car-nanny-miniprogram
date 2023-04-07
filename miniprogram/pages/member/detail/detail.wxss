@@ -84,6 +84,12 @@
   margin-top: .5em;
 }
 
+.actions {
+  padding-top: 0;
+}
+.actions .t-tab-panel {
+  margin-top: 12px;
+}
 .actions .item {
   display: flex;
   padding: 5px 0;
