@@ -105,12 +105,13 @@
   font-size: 14px;
 }
 .actions .item .count {
+  font-size: 18px;
   width: 3em;
   text-align: right;
-  color: #363637;
+  color: #67C23A;
   letter-spacing: 2px;
 }
-.actions .item .count.primary {
+.actions .item .count.deduction {
   color: red;
 }
 .actions .empty {

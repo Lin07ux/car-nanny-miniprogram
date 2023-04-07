@@ -9,10 +9,9 @@
       <t-icon class="more" name="ellipsis" size="18" bind:click="handleMoreActions"></t-icon>
     </view>
 
-    <view wx:if="{{detail.carLicenseNo}}" class="car-no">{{detail.carLicenseNo}}</view>
-    <view wx:else class="car-no empty">(待完善)</view>
+    <view class="car-no">{{detail.carLicenseNo}}</view>
 
-    <button class="call" size="mini" type="primary" bindtap="callTelphone">
+    <button wx:if="{{detail.tel}}" class="call" size="mini" type="primary" bindtap="callTelphone">
       <t-icon name="call" size="20" />
       <text>{{detail.tel}}</text>
     </button>
@@ -60,8 +59,8 @@
         </view>
         <view class="time">{{item.createTime}}</view>
       </view>
-      <view class="count primary" wx:if="{{item.count > 0}}">+{{item.count}}</view>
-      <view class="count" wx:else>{{item.count}}</view>
+      <view class="count recharge" wx:if="{{item.count > 0}}">+{{item.count}}</view>
+      <view class="count deduction" wx:elif="{{item.count < 0}}">{{item.count}}</view>
     </view>
     <t-divider/>
   </block>
