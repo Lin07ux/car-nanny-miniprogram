@@ -43,7 +43,7 @@
     </view>
   </navigator>
 
-  <t-empty icon="none" description="暂无数据"></t-empty>
+  <t-empty wx:if="{{members.list.length <= 0}}" icon="none" description="暂无数据"></t-empty>
 </view>
 
 <t-fab class="add-button" icon="add" bind:click="gotoMemberForm" aria-label="新增用户"></t-fab>
