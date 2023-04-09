@@ -16,6 +16,10 @@ Component({
       type: Number,
       value: 0,
     },
+    url: {
+      type: String,
+      value: '',
+    }
   },
   data: {
     file: '',
@@ -26,11 +30,14 @@ Component({
     washCount: function(count) {
       this.setData({ isMaintain: count > 0 })
     },
-    visible: function (visible) {
+    visible: function(visible) {
       if (! visible && this.data.saved && this.data.file) {
         this.handleDelete()
       }
-    }
+    },
+    url: function(url) {
+      url && this.setData({file: url})
+    },
   },
   methods: {
     handleVisibleChange(e: WechatMiniprogram.CustomEvent) {
@@ -56,7 +63,7 @@ Component({
     },
     _doConsume() {
       wx.showLoading({ title: this.data.isMaintain ? '消费洗车次数' : '记录洗车消费' })
-      uploadOssImage(IMAGE_TYPE_CONSUME, this.data.file).then(url => {
+      this._uploadImage().then(url => {
         const type = this.data.isMaintain ? CONSUME_MAINTAIN : CONSUME_RECORD
         return memberConsume(this.data.memberId, url, type)
       }).then(result => {
@@ -67,6 +74,13 @@ Component({
         wx.hideLoading()
         wx.showToast({ title: err.message, icon: 'none' })
       })
+    },
+    _uploadImage(): Promise<string> {
+      if (this.data.url === this.data.file) {
+        return Promise.resolve(this.data.url)
+      }
+
+      return uploadOssImage(IMAGE_TYPE_CONSUME, this.data.file)
     },
     handleSelect(e: WechatMiniprogram.CustomEvent) {
       const detail = e.detail as { tempFilePaths: string[], tempFiles: object[] }
