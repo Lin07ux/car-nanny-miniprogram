@@ -8,6 +8,7 @@ Page({
     showConsume: false,
     showRecharge: false,
     selectedIds: <number[]>[],
+    consumeUrl: '',
     detail: {
       id: 0,
       tel: '',
@@ -34,13 +35,14 @@ Page({
       },
     },
   },
-  onLoad(query: { id?: number, from?: string }) {
+  onLoad(query: { id?: number, url?: string }) {
     this.setData({ _id: query.id || 0 })
     this._loadDetail().then(() => {
       // 扫码接车进来直接扣费
       if (this.data.detail.id > 0) {
         this._loadActions()
-        if (query.from === 'scan') {
+        if (query.url) {
+          this.setData({ consumeUrl: query.url })
           this.handleConsume()
         }
       }
@@ -180,7 +182,7 @@ Page({
   handleConsumeCancel() {
     this.setData({ showConsume: false })
   },
-  handleCinsumeSuccess(e: WechatMiniprogram.CustomEvent) {
+  handleConsumeSuccess(e: WechatMiniprogram.CustomEvent) {
     const { canWashCount } = e.detail
     this.setData({
       showConsume: false,

@@ -40,7 +40,7 @@ Page({
     const { id, url, plateNumber } = e.detail
 
     if (id > 0) {
-      wx.navigateTo({ url: `/pages/member/detail/detail?id=${id}&from=scan`})
+      wx.navigateTo({ url: `/pages/member/detail/detail?id=${id}&url=${url}`})
     } else {
       wx.navigateTo({ url: `/pages/member/form/form?url=${url}&plateNumber=${plateNumber}` })
     }
