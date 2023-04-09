@@ -74,7 +74,7 @@
 
 .recognize .t-fab {
   position: fixed;
-  bottom: 5vh;
+  bottom: 8vh;
   left: 50%;
   transform: translateX(-50%);
 }
