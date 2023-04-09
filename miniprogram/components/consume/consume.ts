@@ -69,7 +69,7 @@ Component({
       }).then(result => {
         wx.hideLoading()
         this.setData({ saved: true })
-        this.triggerEvent('success', { canWashCount: result.canWashCount })
+        this.triggerEvent('success', { canWashCount: result.canWashCount, isMaintain: this.data.isMaintain })
       }).catch((err: IHttpError) => {
         wx.hideLoading()
         wx.showToast({ title: err.message, icon: 'none' })

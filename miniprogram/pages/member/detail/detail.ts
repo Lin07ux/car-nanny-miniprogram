@@ -1,5 +1,9 @@
 import { getMemberDetail, getMemberActions, updateMemberLabels, deleteMember } from '../../../services/member'
 
+const ACTION_TYPE_MAINTAIN = 'maintain'
+const ACTION_TYPE_RECORD = 'record'
+type actionTab = 'maintain' | 'record'
+
 Page({
   data: {
     _id: 0,
@@ -22,13 +26,13 @@ Page({
       labels: <{id: number, name: string}[]>[],
     },
     actions: {
-      tab: <'maintain'|'record'>'maintain',
-      maintain: {
+      tab: <actionTab>ACTION_TYPE_MAINTAIN,
+      [ACTION_TYPE_MAINTAIN]: {
         lastId: 0,
         isEnd: false,
         list: <{id: number, image: string}[]>[],
       },
-      record: {
+      [ACTION_TYPE_RECORD]: {
         lastId: 0,
         isEnd: false,
         list: <{id: number, image: string}[]>[],
@@ -51,7 +55,7 @@ Page({
   onPullDownRefresh() {
     this._loadDetail()
   },
-  onReachBottom: function() {
+  onReachBottom() {
     const type = this.data.actions.tab
 
     this.data.actions[type].isEnd || this._loadActions(this.data.actions[type].lastId)
@@ -183,11 +187,13 @@ Page({
     this.setData({ showConsume: false })
   },
   handleConsumeSuccess(e: WechatMiniprogram.CustomEvent) {
-    const { canWashCount } = e.detail
+    const { canWashCount, isMaintain } = e.detail
     this.setData({
       showConsume: false,
       'detail.canWashCount': canWashCount,
     })
+
+    this.setData({ 'actions.tab': isMaintain ? ACTION_TYPE_MAINTAIN : ACTION_TYPE_RECORD })
     this._loadActions()
   },
   handleAddTag() {
@@ -219,7 +225,6 @@ Page({
   onActionTabChange(e: WechatMiniprogram.CustomEvent) {
     const { value } = e.detail
 
-    console.log(value)
     this.setData({ 'actions.tab': value })
     this._loadActions()
   },
