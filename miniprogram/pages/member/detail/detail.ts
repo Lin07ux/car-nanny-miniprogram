@@ -1,4 +1,5 @@
 import { getMemberDetail, getMemberActions, updateMemberLabels, deleteMember } from '../../../services/member'
+import { shareHomePage } from '../../../services/share'
 
 const ACTION_TYPE_MAINTAIN = 'maintain'
 const ACTION_TYPE_RECORD = 'record'
@@ -60,6 +61,7 @@ Page({
 
     this.data.actions[type].isEnd || this._loadActions(this.data.actions[type].lastId)
   },
+  onShareAppMessage: shareHomePage,
   _loadDetail(): Promise<void> {
     if (this.data._id <= 0) {
       wx.showToast({ title: '会员信息不存在', icon: 'error' })

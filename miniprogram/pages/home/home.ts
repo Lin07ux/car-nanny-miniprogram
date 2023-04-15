@@ -1,4 +1,5 @@
 import { getMemberStatistics } from '../../services/member'
+import { shareHomePage } from '../../services/share'
 
 Page({
   data: {
@@ -26,6 +27,7 @@ Page({
   onPullDownRefresh() {
     this._loadStaistics()
   },
+  onShareAppMessage: shareHomePage,
   _loadStaistics() {
     wx.showLoading({ title: '' })
     getMemberStatistics().then(res => {

@@ -2,6 +2,7 @@ import { formatDate } from '../../../utils/util'
 import { createMember, getMemberDetail, updateMember } from '../../../services/member'
 import { uploadOssImage } from '../../../services/aliyun'
 import { IMAGE_TYPE_CAR_LICENSE, IMAGE_TYPE_CAR_VIN } from '../../../constants/common'
+import { shareHomePage } from '../../../services/share'
 
 type uploaderFile = {
   url: string,
@@ -69,6 +70,7 @@ Page({
       })
     }
   },
+  onShareAppMessage: shareHomePage,
   _loadMemberDetail() {
     wx.showLoading({ title: '' })
     getMemberDetail(this.data._id).then(res => {

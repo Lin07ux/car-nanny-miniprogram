@@ -1,4 +1,5 @@
 import { getMemberList } from '../../../services/member'
+import { shareHomePage } from '../../../services/share'
 
 type member = {
   id: number,
@@ -42,6 +43,7 @@ Page({
   onReachBottom: function() {
     this.data.members.isEnd || this.loadMembers(this.data.members.lastId)
   },
+  onShareAppMessage: shareHomePage,
   inputKeyword(e: WechatMiniprogram.Input) {
     this.setData({ keyword: e.detail.value || '' })
   },

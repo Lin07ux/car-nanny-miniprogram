@@ -1,4 +1,5 @@
 import { getStorageSync, setStorageSync, delStorageSync } from "../../services/storage"
+import { shareHomePage } from '../../services/share'
 
 const user: IUser = getApp().globalData.user
 const REMEMBER_KEY: string = 'login_account_remember'
@@ -21,6 +22,7 @@ Page({
     error: '',
     remember: true,
   },
+  onShareAppMessage: shareHomePage,
   formInput(e: WechatMiniprogram.Input) {
     const { field } = e.currentTarget.dataset
     this.setData({
