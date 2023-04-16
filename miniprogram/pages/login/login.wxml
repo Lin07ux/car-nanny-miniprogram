@@ -1,7 +1,7 @@
 <view class="page" data-weui-theme="{{theme}}">
   <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
 
-  <mp-form-page title="车保姆西溪店" subtitle="请使用您的账号进行登录">
+  <mp-form-page title="车保姆" subtitle="请使用您的账号进行登录">
     <mp-form id="form" rules="{{rules}}" models="{{form}}">
       <mp-cells>
         <label class="justify">
