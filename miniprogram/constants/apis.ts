@@ -21,3 +21,6 @@ export const MEMBER_UPDATE_LABELS = 'members/_id_/labels'
 export const MEMBER_RECHARGE = 'members/_id_/recharge'
 export const MEMBER_CONSUME = 'members/_id_/consume'
 export const MEMBER_STATISTICS = 'members/statistics'
+
+// 分享
+export const SHARE_HOME = 'share/home'
