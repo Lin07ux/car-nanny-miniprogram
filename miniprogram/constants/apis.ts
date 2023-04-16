@@ -1,8 +1,5 @@
 export const LOGIN = 'login'
 
-// 文件上传
-export const UPLOAD_IMAGE = 'upload/image'
-
 // 阿里云服务
 export const ALIYUN_OSS_IMAGE = 'aliyun/oss/image'
 export const ALIYUN_LICENSE_PLATE = 'aliyun/recognize/license-plate'
