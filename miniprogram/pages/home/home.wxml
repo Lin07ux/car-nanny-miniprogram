@@ -1,8 +1,14 @@
 <view class="statistics">
-  <navigator class="item" wx:for="{{items}}" wx:key="name" url="/pages/member/list/list?type={{item.name}}" hover-class="hover">
-    <view class="data">{{statistics[item.name]}}</view>
-    <view class="label">{{item.label}}</view>
-  </navigator>
+  <view class="item" wx:for="{{items}}" wx:key="name">
+    <navigator wx:if="{{item.name !== 'actions'}}" url="/pages/member/list/list?type={{item.name}}" hover-class="hover">
+      <view class="data">{{statistics[item.name]}}</view>
+      <view class="label">{{item.label}}</view>
+    </navigator>
+    <navigator wx:else url="/pages/statistics/statistics" hover-class="hover">
+      <t-icon class="data" name="chart-bar" size="35" />
+      <view class="label">{{item.label}}</view>
+    </navigator>
+  </view>
 </view>
 
 <view class="card operates">

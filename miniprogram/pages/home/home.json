@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "车保姆",
   "usingComponents": {
+    "t-icon": "tdesign-miniprogram/icon/icon",
     "mp-icon": "weui-miniprogram/icon/icon",
     "c-recognize": "/components/recognize/recognize"
   }

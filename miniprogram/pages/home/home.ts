@@ -6,9 +6,9 @@ Page({
     items: [
       { label: '全部会员', name: 'total' },
       { label: '本月新增', name: 'monthNewly' },
-      { label: '当天生日', name: 'birthday' },
+      { label: '消费统计', name: 'actions' },
       { label: '活跃会员', name: 'active' },
-      { label: '即将流失会员', name: 'churn' },
+      { label: '即将流失', name: 'churn' },
       { label: '待充值会员', name: 'unRecharged' },
     ],
     statistics: {
