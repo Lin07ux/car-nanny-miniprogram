@@ -1,2 +1,33 @@
-<!--pages/statistics/statistics.wxml-->
-<text>pages/statistics/statistics.wxml</text>
+<mp-form >
+  <view class="query">
+    <view class="item">
+      <view class="label">起始日期：</view>
+      <picker class="picker" mode="date" value="{{query.startTime}}" start="2023-01-01" end="{{today}}" header-text="起始日期" data-field="startTime" bindchange="bindDateChange">
+        <view>{{query.startTime || '-'}}</view>
+    </picker>
+    </view>
+    <view class="item">
+      <view class="label">截止日期：</view>
+      <picker class="picker" mode="date" value="{{query.endTime}}" start="2023-01-01" end="{{today}}" header-text="截止日期" data-field="endTime" bindchange="bindDateChange">
+        <view>{{query.endTime || '-'}}</view>
+    </picker>
+    </view>
+    <view class="item">
+      <view class="label">消费类别：</view>
+      <picker class="picker" mode="selector" value="{{actionIndex}}" range="{{actionTypes}}" range-key="name" header-text="消费类别" bindchange="bindActionChange">
+        <view>{{actionTypes[actionIndex].name || '-'}}</view>
+    </picker>
+    </view>
+  </view>
+</mp-form>
+
+<view class="actions">
+  <view class="item" wx:for="{{actions.list}}" wx:key="id">
+    <view class="license-no">{{item.carrLicenseNo}}</view>
+    <view class="detail">
+      <view class="telephone">{{item.tel || '-'}}</view>
+      <view class="type">{{item.title}}</view>
+      <view class="time">{{item.createTime}}</view>
+    </view>
+  </view>
+</view>

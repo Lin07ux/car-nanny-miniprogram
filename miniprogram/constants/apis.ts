@@ -24,3 +24,6 @@ export const MEMBER_STATISTICS = 'members/statistics'
 
 // 分享
 export const SHARE_HOME = 'share/home'
+
+// 统计
+export const STATISTICS_CAR_WASH = 'statistics/car-wash'
