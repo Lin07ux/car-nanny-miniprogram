@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "消费统计",
   "usingComponents": {
-    "mp-form": "weui-miniprogram/form/form"
+    "mp-form": "weui-miniprogram/form/form",
+    "t-fab": "tdesign-miniprogram/fab/fab"
   }
 }

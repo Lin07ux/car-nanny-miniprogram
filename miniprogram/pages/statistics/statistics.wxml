@@ -31,3 +31,5 @@
     </view>
   </view>
 </view>
+
+<t-fab wx:if="{{actions.list.length > 0}}" icon="{{ downloading ? 'ellipsis' : 'cloud-download' }}" aria-label="下载" bind:click="download"></t-fab>

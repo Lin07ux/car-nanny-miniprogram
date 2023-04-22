@@ -1,12 +1,11 @@
 import { formatDate } from '../../utils/util'
 import { shareHomePage } from '../../services/share'
-import { getCarWashActions } from '../../services/statistics'
-
-const today = formatDate()
+import { getCarWashActions, downloadCarWash } from '../../services/statistics'
 
 Page({
   data: {
-    today: today,
+    today: '',
+    downloading: false,
     actionIndex: 0,
     actionName: '',
     query: {
@@ -21,12 +20,14 @@ Page({
       { value: 101, name: '洗车-记录' },
     ],
     actions: {
-      list: [],
+      list: <object[]>[],
       lastId: -1,
     },
   },
   onLoad() {
+    const today = formatDate()
     this.setData({
+      today,
       actionIndex: 0,
       query: {
         actionType: this.data.actionTypes[0].value,
@@ -94,5 +95,27 @@ Page({
       'query.actionType': this.data.actionTypes[index].value,
     })
     this._reloadActions()
+  },
+  download() {
+    if (this.data.downloading) {
+      wx.showToast({ title: '下载中，请稍后', icon: 'none' })
+      return
+    }
+
+    this.setData({ downloading: true })
+    downloadCarWash(this.data.query).then(res => {
+      wx.downloadFile({
+        url: res.url,
+        success: (result: WechatMiniprogram.DownloadFileSuccessCallbackResult) => {
+          console.log(result.filePath, res)
+          wx.showToast({ title: '下载成功', icon: 'success' })
+        },
+        fail: (error: WechatMiniprogram.GeneralCallbackResult) => {
+          throw new Error(error.errMsg)
+        },
+      })
+    }).catch((err: IHttpError|Error) => {
+      wx.showToast({ title: err.message, icon: 'none' })
+    }).finally(() => this.setData({ downloading: false }))
   },
 })

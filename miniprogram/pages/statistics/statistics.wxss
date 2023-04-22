@@ -48,3 +48,9 @@
   color: #525457;
   text-align: right;
 }
+
+.t-fab {
+  bottom: 35vh;
+  right: 5vw;
+  font-size: 14px;
+}
