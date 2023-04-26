@@ -107,8 +107,17 @@ Page({
       wx.downloadFile({
         url: res.url,
         success: (result: WechatMiniprogram.DownloadFileSuccessCallbackResult) => {
-          console.log(result.filePath, res)
+          console.log(result, res)
+          // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+          if (result.statusCode !== 200) {
+            throw new Error(result.errMsg || '文件下载失败')
+          }
           wx.showToast({ title: '下载成功', icon: 'success' })
+          wx.openDocument({
+            filePath: result.tempFilePath,
+            fileType: 'xlsx',
+            showMenu: true,
+          })
         },
         fail: (error: WechatMiniprogram.GeneralCallbackResult) => {
           throw new Error(error.errMsg)
