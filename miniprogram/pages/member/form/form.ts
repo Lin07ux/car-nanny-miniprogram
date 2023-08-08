@@ -62,12 +62,23 @@ Page({
       this.setData({ _id: id })
       this._loadMemberDetail()
       return
-    } else if (query.plateNumber) {
-      this.setData({
-        'form.car': query.url,
-        'form.carLicenseNo': query.plateNumber,
-        'images.car': [{ url: query.url, href: query.url, error: false, loading: false }]
-      })
+    } else {
+      if (query.plateNumber) {
+        this.setData({
+          'form.car': query.url,
+          'form.carLicenseNo': query.plateNumber,
+          'images.car': [{ url: query.url, href: query.url, error: false, loading: false }]
+        })
+      }
+      wx.showModal({
+        title: '提示',
+        content: '我方将使用该信息来创建会员账户，关联会员权益，以为用户提供更优质的服务。同意我方使用该信息请点击确认，否则将取消创建。',
+        success (res) {
+          if (res.cancel) {
+            wx.navigateBack()
+          }
+        }
+      })      
     }
   },
   onShareAppMessage: shareHomePage,

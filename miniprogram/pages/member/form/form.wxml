@@ -14,8 +14,8 @@
         </mp-cell>
       </label>
       <label class="justify">
-        <mp-cell prop="tel" title="手机号码">
-          <input type="text" class="weui-input" value="{{form.tel}}" bindinput="formInput" data-field="tel" focus maxlength="13" placeholder="请输入会员手机号码"/>
+        <mp-cell prop="tel" title="联系方式">
+          <input type="text" class="weui-input" value="{{form.tel}}" bindinput="formInput" data-field="tel" focus maxlength="13" placeholder="请输入会员的联系方式"/>
         </mp-cell>
       </label>
       <label class="justify">
